@@ -1,0 +1,670 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DC491FC969824CDB92360B47 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA93C2E17AC3652013CF1A4 /* libPods.a */; };
+		DFA92A8E1BEC8D7A00EAC9C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92A8D1BEC8D7A00EAC9C6 /* main.m */; };
+		DFA92A911BEC8D7A00EAC9C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92A901BEC8D7A00EAC9C6 /* AppDelegate.m */; };
+		DFA92A941BEC8D7A00EAC9C6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92A931BEC8D7A00EAC9C6 /* ViewController.m */; };
+		DFA92A991BEC8D7A00EAC9C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFA92A981BEC8D7A00EAC9C6 /* Assets.xcassets */; };
+		DFA92A9C1BEC8D7A00EAC9C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA92A9A1BEC8D7A00EAC9C6 /* LaunchScreen.storyboard */; };
+		DFA92AA71BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AA61BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoTests.m */; };
+		DFA92AB21BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AB11BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoUITests.m */; };
+		DFA92AD51BEC8DA400EAC9C6 /* ALAsset+isEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AC21BEC8DA400EAC9C6 /* ALAsset+isEqual.m */; };
+		DFA92AD61BEC8DA400EAC9C6 /* ALAssetsGroup+isEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AC41BEC8DA400EAC9C6 /* ALAssetsGroup+isEqual.m */; };
+		DFA92AD71BEC8DA400EAC9C6 /* LCImageCollectionSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AC71BEC8DA400EAC9C6 /* LCImageCollectionSelectedView.m */; };
+		DFA92AD81BEC8DA400EAC9C6 /* LCImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AC91BEC8DA400EAC9C6 /* LCImageCollectionViewCell.m */; };
+		DFA92AD91BEC8DA400EAC9C6 /* LCImageGroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92ACB1BEC8DA400EAC9C6 /* LCImageGroupTableViewCell.m */; };
+		DFA92ADA1BEC8DA400EAC9C6 /* LCImageGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92ACD1BEC8DA400EAC9C6 /* LCImageGroupViewController.m */; };
+		DFA92ADB1BEC8DA400EAC9C6 /* LCImagePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA92ACF1BEC8DA400EAC9C6 /* LCImagePicker.storyboard */; };
+		DFA92ADC1BEC8DA400EAC9C6 /* LCImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AD21BEC8DA400EAC9C6 /* LCImagePickerViewController.m */; };
+		DFA92ADD1BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AD41BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m */; };
+		DFA92ADF1BEC8DCB00EAC9C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA92ADE1BEC8DCB00EAC9C6 /* Main.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DFA92AA31BEC8D7B00EAC9C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DFA92A811BEC8D7A00EAC9C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFA92A881BEC8D7A00EAC9C6;
+			remoteInfo = LCImagePickerControllerDemo;
+		};
+		DFA92AAE1BEC8D7B00EAC9C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DFA92A811BEC8D7A00EAC9C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFA92A881BEC8D7A00EAC9C6;
+			remoteInfo = LCImagePickerControllerDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		12EB89784644C536BFD5BD1D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		ABA93C2E17AC3652013CF1A4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3BD0BE4032BFBEFEAAF33C3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		DFA92A891BEC8D7A00EAC9C6 /* LCImagePickerControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LCImagePickerControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFA92A8D1BEC8D7A00EAC9C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DFA92A8F1BEC8D7A00EAC9C6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DFA92A901BEC8D7A00EAC9C6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DFA92A921BEC8D7A00EAC9C6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		DFA92A931BEC8D7A00EAC9C6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		DFA92A981BEC8D7A00EAC9C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DFA92A9B1BEC8D7A00EAC9C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DFA92A9D1BEC8D7A00EAC9C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFA92AA21BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LCImagePickerControllerDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFA92AA61BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LCImagePickerControllerDemoTests.m; sourceTree = "<group>"; };
+		DFA92AA81BEC8D7B00EAC9C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFA92AAD1BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LCImagePickerControllerDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFA92AB11BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LCImagePickerControllerDemoUITests.m; sourceTree = "<group>"; };
+		DFA92AB31BEC8D7B00EAC9C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFA92AC11BEC8DA400EAC9C6 /* ALAsset+isEqual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+isEqual.h"; sourceTree = "<group>"; };
+		DFA92AC21BEC8DA400EAC9C6 /* ALAsset+isEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+isEqual.m"; sourceTree = "<group>"; };
+		DFA92AC31BEC8DA400EAC9C6 /* ALAssetsGroup+isEqual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsGroup+isEqual.h"; sourceTree = "<group>"; };
+		DFA92AC41BEC8DA400EAC9C6 /* ALAssetsGroup+isEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsGroup+isEqual.m"; sourceTree = "<group>"; };
+		DFA92AC51BEC8DA400EAC9C6 /* LCImagePickerViewController+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LCImagePickerViewController+Internal.h"; sourceTree = "<group>"; };
+		DFA92AC61BEC8DA400EAC9C6 /* LCImageCollectionSelectedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImageCollectionSelectedView.h; sourceTree = "<group>"; };
+		DFA92AC71BEC8DA400EAC9C6 /* LCImageCollectionSelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCImageCollectionSelectedView.m; sourceTree = "<group>"; };
+		DFA92AC81BEC8DA400EAC9C6 /* LCImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImageCollectionViewCell.h; sourceTree = "<group>"; };
+		DFA92AC91BEC8DA400EAC9C6 /* LCImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCImageCollectionViewCell.m; sourceTree = "<group>"; };
+		DFA92ACA1BEC8DA400EAC9C6 /* LCImageGroupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImageGroupTableViewCell.h; sourceTree = "<group>"; };
+		DFA92ACB1BEC8DA400EAC9C6 /* LCImageGroupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCImageGroupTableViewCell.m; sourceTree = "<group>"; };
+		DFA92ACC1BEC8DA400EAC9C6 /* LCImageGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImageGroupViewController.h; sourceTree = "<group>"; };
+		DFA92ACD1BEC8DA400EAC9C6 /* LCImageGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCImageGroupViewController.m; sourceTree = "<group>"; };
+		DFA92ACE1BEC8DA400EAC9C6 /* LCImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImagePicker.h; sourceTree = "<group>"; };
+		DFA92ACF1BEC8DA400EAC9C6 /* LCImagePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LCImagePicker.storyboard; sourceTree = "<group>"; };
+		DFA92AD01BEC8DA400EAC9C6 /* LCImagePickerDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImagePickerDefines.h; sourceTree = "<group>"; };
+		DFA92AD11BEC8DA400EAC9C6 /* LCImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImagePickerViewController.h; sourceTree = "<group>"; };
+		DFA92AD21BEC8DA400EAC9C6 /* LCImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCImagePickerViewController.m; sourceTree = "<group>"; };
+		DFA92AD31BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImgaeCollectionViewController.h; sourceTree = "<group>"; };
+		DFA92AD41BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCImgaeCollectionViewController.m; sourceTree = "<group>"; };
+		DFA92ADE1BEC8DCB00EAC9C6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DFA92A861BEC8D7A00EAC9C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC491FC969824CDB92360B47 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFA92A9F1BEC8D7B00EAC9C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFA92AAA1BEC8D7B00EAC9C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6A3BB49EF8AA1C87D98AC361 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ABA93C2E17AC3652013CF1A4 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7CA7C16ACD1A555EB74A133C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				12EB89784644C536BFD5BD1D /* Pods.debug.xcconfig */,
+				D3BD0BE4032BFBEFEAAF33C3 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DFA92A801BEC8D7A00EAC9C6 = {
+			isa = PBXGroup;
+			children = (
+				DFA92A8B1BEC8D7A00EAC9C6 /* LCImagePickerControllerDemo */,
+				DFA92AA51BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoTests */,
+				DFA92AB01BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoUITests */,
+				DFA92A8A1BEC8D7A00EAC9C6 /* Products */,
+				7CA7C16ACD1A555EB74A133C /* Pods */,
+				6A3BB49EF8AA1C87D98AC361 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DFA92A8A1BEC8D7A00EAC9C6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DFA92A891BEC8D7A00EAC9C6 /* LCImagePickerControllerDemo.app */,
+				DFA92AA21BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoTests.xctest */,
+				DFA92AAD1BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DFA92A8B1BEC8D7A00EAC9C6 /* LCImagePickerControllerDemo */ = {
+			isa = PBXGroup;
+			children = (
+				DFA92ABF1BEC8DA400EAC9C6 /* LCImagePickerController */,
+				DFA92A8F1BEC8D7A00EAC9C6 /* AppDelegate.h */,
+				DFA92A901BEC8D7A00EAC9C6 /* AppDelegate.m */,
+				DFA92A921BEC8D7A00EAC9C6 /* ViewController.h */,
+				DFA92A931BEC8D7A00EAC9C6 /* ViewController.m */,
+				DFA92A981BEC8D7A00EAC9C6 /* Assets.xcassets */,
+				DFA92A9A1BEC8D7A00EAC9C6 /* LaunchScreen.storyboard */,
+				DFA92ADE1BEC8DCB00EAC9C6 /* Main.storyboard */,
+				DFA92A9D1BEC8D7A00EAC9C6 /* Info.plist */,
+				DFA92A8C1BEC8D7A00EAC9C6 /* Supporting Files */,
+			);
+			path = LCImagePickerControllerDemo;
+			sourceTree = "<group>";
+		};
+		DFA92A8C1BEC8D7A00EAC9C6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DFA92A8D1BEC8D7A00EAC9C6 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DFA92AA51BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				DFA92AA61BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoTests.m */,
+				DFA92AA81BEC8D7B00EAC9C6 /* Info.plist */,
+			);
+			path = LCImagePickerControllerDemoTests;
+			sourceTree = "<group>";
+		};
+		DFA92AB01BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DFA92AB11BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoUITests.m */,
+				DFA92AB31BEC8D7B00EAC9C6 /* Info.plist */,
+			);
+			path = LCImagePickerControllerDemoUITests;
+			sourceTree = "<group>";
+		};
+		DFA92ABF1BEC8DA400EAC9C6 /* LCImagePickerController */ = {
+			isa = PBXGroup;
+			children = (
+				DFA92AC01BEC8DA400EAC9C6 /* Categories */,
+				DFA92AC61BEC8DA400EAC9C6 /* LCImageCollectionSelectedView.h */,
+				DFA92AC71BEC8DA400EAC9C6 /* LCImageCollectionSelectedView.m */,
+				DFA92AC81BEC8DA400EAC9C6 /* LCImageCollectionViewCell.h */,
+				DFA92AC91BEC8DA400EAC9C6 /* LCImageCollectionViewCell.m */,
+				DFA92ACA1BEC8DA400EAC9C6 /* LCImageGroupTableViewCell.h */,
+				DFA92ACB1BEC8DA400EAC9C6 /* LCImageGroupTableViewCell.m */,
+				DFA92ACC1BEC8DA400EAC9C6 /* LCImageGroupViewController.h */,
+				DFA92ACD1BEC8DA400EAC9C6 /* LCImageGroupViewController.m */,
+				DFA92ACE1BEC8DA400EAC9C6 /* LCImagePicker.h */,
+				DFA92ACF1BEC8DA400EAC9C6 /* LCImagePicker.storyboard */,
+				DFA92AD01BEC8DA400EAC9C6 /* LCImagePickerDefines.h */,
+				DFA92AD11BEC8DA400EAC9C6 /* LCImagePickerViewController.h */,
+				DFA92AD21BEC8DA400EAC9C6 /* LCImagePickerViewController.m */,
+				DFA92AD31BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.h */,
+				DFA92AD41BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m */,
+			);
+			path = LCImagePickerController;
+			sourceTree = SOURCE_ROOT;
+		};
+		DFA92AC01BEC8DA400EAC9C6 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				DFA92AC11BEC8DA400EAC9C6 /* ALAsset+isEqual.h */,
+				DFA92AC21BEC8DA400EAC9C6 /* ALAsset+isEqual.m */,
+				DFA92AC31BEC8DA400EAC9C6 /* ALAssetsGroup+isEqual.h */,
+				DFA92AC41BEC8DA400EAC9C6 /* ALAssetsGroup+isEqual.m */,
+				DFA92AC51BEC8DA400EAC9C6 /* LCImagePickerViewController+Internal.h */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DFA92A881BEC8D7A00EAC9C6 /* LCImagePickerControllerDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFA92AB61BEC8D7B00EAC9C6 /* Build configuration list for PBXNativeTarget "LCImagePickerControllerDemo" */;
+			buildPhases = (
+				DEF5AF32458931B8282279C0 /* Check Pods Manifest.lock */,
+				DFA92A851BEC8D7A00EAC9C6 /* Sources */,
+				DFA92A861BEC8D7A00EAC9C6 /* Frameworks */,
+				DFA92A871BEC8D7A00EAC9C6 /* Resources */,
+				518D306107A648E47E89AB4D /* Embed Pods Frameworks */,
+				ACC83C89A193D2950934CF9D /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LCImagePickerControllerDemo;
+			productName = LCImagePickerControllerDemo;
+			productReference = DFA92A891BEC8D7A00EAC9C6 /* LCImagePickerControllerDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DFA92AA11BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFA92AB91BEC8D7B00EAC9C6 /* Build configuration list for PBXNativeTarget "LCImagePickerControllerDemoTests" */;
+			buildPhases = (
+				DFA92A9E1BEC8D7B00EAC9C6 /* Sources */,
+				DFA92A9F1BEC8D7B00EAC9C6 /* Frameworks */,
+				DFA92AA01BEC8D7B00EAC9C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DFA92AA41BEC8D7B00EAC9C6 /* PBXTargetDependency */,
+			);
+			name = LCImagePickerControllerDemoTests;
+			productName = LCImagePickerControllerDemoTests;
+			productReference = DFA92AA21BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DFA92AAC1BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFA92ABC1BEC8D7B00EAC9C6 /* Build configuration list for PBXNativeTarget "LCImagePickerControllerDemoUITests" */;
+			buildPhases = (
+				DFA92AA91BEC8D7B00EAC9C6 /* Sources */,
+				DFA92AAA1BEC8D7B00EAC9C6 /* Frameworks */,
+				DFA92AAB1BEC8D7B00EAC9C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DFA92AAF1BEC8D7B00EAC9C6 /* PBXTargetDependency */,
+			);
+			name = LCImagePickerControllerDemoUITests;
+			productName = LCImagePickerControllerDemoUITests;
+			productReference = DFA92AAD1BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DFA92A811BEC8D7A00EAC9C6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = bawn;
+				TargetAttributes = {
+					DFA92A881BEC8D7A00EAC9C6 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 8246L2QR6A;
+					};
+					DFA92AA11BEC8D7B00EAC9C6 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 8246L2QR6A;
+						TestTargetID = DFA92A881BEC8D7A00EAC9C6;
+					};
+					DFA92AAC1BEC8D7B00EAC9C6 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 8246L2QR6A;
+						TestTargetID = DFA92A881BEC8D7A00EAC9C6;
+					};
+				};
+			};
+			buildConfigurationList = DFA92A841BEC8D7A00EAC9C6 /* Build configuration list for PBXProject "LCImagePickerControllerDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DFA92A801BEC8D7A00EAC9C6;
+			productRefGroup = DFA92A8A1BEC8D7A00EAC9C6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DFA92A881BEC8D7A00EAC9C6 /* LCImagePickerControllerDemo */,
+				DFA92AA11BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoTests */,
+				DFA92AAC1BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DFA92A871BEC8D7A00EAC9C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFA92A9C1BEC8D7A00EAC9C6 /* LaunchScreen.storyboard in Resources */,
+				DFA92A991BEC8D7A00EAC9C6 /* Assets.xcassets in Resources */,
+				DFA92ADB1BEC8DA400EAC9C6 /* LCImagePicker.storyboard in Resources */,
+				DFA92ADF1BEC8DCB00EAC9C6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFA92AA01BEC8D7B00EAC9C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFA92AAB1BEC8D7B00EAC9C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		518D306107A648E47E89AB4D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ACC83C89A193D2950934CF9D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DEF5AF32458931B8282279C0 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DFA92A851BEC8D7A00EAC9C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFA92AD91BEC8DA400EAC9C6 /* LCImageGroupTableViewCell.m in Sources */,
+				DFA92AD51BEC8DA400EAC9C6 /* ALAsset+isEqual.m in Sources */,
+				DFA92A941BEC8D7A00EAC9C6 /* ViewController.m in Sources */,
+				DFA92A911BEC8D7A00EAC9C6 /* AppDelegate.m in Sources */,
+				DFA92A8E1BEC8D7A00EAC9C6 /* main.m in Sources */,
+				DFA92AD71BEC8DA400EAC9C6 /* LCImageCollectionSelectedView.m in Sources */,
+				DFA92ADD1BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m in Sources */,
+				DFA92AD61BEC8DA400EAC9C6 /* ALAssetsGroup+isEqual.m in Sources */,
+				DFA92ADC1BEC8DA400EAC9C6 /* LCImagePickerViewController.m in Sources */,
+				DFA92AD81BEC8DA400EAC9C6 /* LCImageCollectionViewCell.m in Sources */,
+				DFA92ADA1BEC8DA400EAC9C6 /* LCImageGroupViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFA92A9E1BEC8D7B00EAC9C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFA92AA71BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFA92AA91BEC8D7B00EAC9C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFA92AB21BEC8D7B00EAC9C6 /* LCImagePickerControllerDemoUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DFA92AA41BEC8D7B00EAC9C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFA92A881BEC8D7A00EAC9C6 /* LCImagePickerControllerDemo */;
+			targetProxy = DFA92AA31BEC8D7B00EAC9C6 /* PBXContainerItemProxy */;
+		};
+		DFA92AAF1BEC8D7B00EAC9C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFA92A881BEC8D7A00EAC9C6 /* LCImagePickerControllerDemo */;
+			targetProxy = DFA92AAE1BEC8D7B00EAC9C6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DFA92A9A1BEC8D7A00EAC9C6 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DFA92A9B1BEC8D7A00EAC9C6 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DFA92AB41BEC8D7B00EAC9C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DFA92AB51BEC8D7B00EAC9C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DFA92AB71BEC8D7B00EAC9C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 12EB89784644C536BFD5BD1D /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LCImagePickerControllerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bawn.LCImagePickerControllerDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DFA92AB81BEC8D7B00EAC9C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3BD0BE4032BFBEFEAAF33C3 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LCImagePickerControllerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bawn.LCImagePickerControllerDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DFA92ABA1BEC8D7B00EAC9C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LCImagePickerControllerDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bawn.LCImagePickerControllerDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LCImagePickerControllerDemo.app/LCImagePickerControllerDemo";
+			};
+			name = Debug;
+		};
+		DFA92ABB1BEC8D7B00EAC9C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LCImagePickerControllerDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bawn.LCImagePickerControllerDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LCImagePickerControllerDemo.app/LCImagePickerControllerDemo";
+			};
+			name = Release;
+		};
+		DFA92ABD1BEC8D7B00EAC9C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LCImagePickerControllerDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bawn.LCImagePickerControllerDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = LCImagePickerControllerDemo;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		DFA92ABE1BEC8D7B00EAC9C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LCImagePickerControllerDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bawn.LCImagePickerControllerDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = LCImagePickerControllerDemo;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DFA92A841BEC8D7A00EAC9C6 /* Build configuration list for PBXProject "LCImagePickerControllerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFA92AB41BEC8D7B00EAC9C6 /* Debug */,
+				DFA92AB51BEC8D7B00EAC9C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFA92AB61BEC8D7B00EAC9C6 /* Build configuration list for PBXNativeTarget "LCImagePickerControllerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFA92AB71BEC8D7B00EAC9C6 /* Debug */,
+				DFA92AB81BEC8D7B00EAC9C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFA92AB91BEC8D7B00EAC9C6 /* Build configuration list for PBXNativeTarget "LCImagePickerControllerDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFA92ABA1BEC8D7B00EAC9C6 /* Debug */,
+				DFA92ABB1BEC8D7B00EAC9C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFA92ABC1BEC8D7B00EAC9C6 /* Build configuration list for PBXNativeTarget "LCImagePickerControllerDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFA92ABD1BEC8D7B00EAC9C6 /* Debug */,
+				DFA92ABE1BEC8D7B00EAC9C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DFA92A811BEC8D7A00EAC9C6 /* Project object */;
+}
