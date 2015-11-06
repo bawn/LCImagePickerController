@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "LCImagePickerController"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "多选图片库"
   s.homepage         = "https://github.com/bawn/LCImagePickerController"
   s.license          = 'MIT'
