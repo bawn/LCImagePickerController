@@ -11,8 +11,11 @@
 
 @implementation NSBundle (LCImagePickerController)
 
++ (NSBundle *)lcAssetsPickerControllerBundle{
+    return [NSBundle bundleWithPath:[NSBundle clAssetsPickerControllerBundlePath]];
+}
 
-+ (NSString *)lcAssetsPickerControllerBundle{
++ (NSString *)clAssetsPickerControllerBundlePath{
     
     return [[NSBundle bundleForClass:[LCImagePickerController class]] pathForResource:NSStringFromClass([LCImagePickerController class]) ofType:@"bundle"];
 }
