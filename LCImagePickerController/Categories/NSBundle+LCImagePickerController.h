@@ -1,6 +1,6 @@
 //
 //  NSBundle+LCImagePickerController.h
-//  LCPickerControllerDemo
+//  LCImagePickerControllerDemo
 //
 //  Created by bawn on 11/5/15.
 //  Copyright © 2015 bawn. All rights reserved.

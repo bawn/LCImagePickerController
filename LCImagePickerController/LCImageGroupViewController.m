@@ -92,6 +92,8 @@ static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
     
     ALAssetsLibraryGroupsEnumerationResultsBlock resultsBlock = ^(ALAssetsGroup *group, BOOL *stop){
         if (group) {
+            // 只包含图片
+            [group setAssetsFilter:[ALAssetsFilter allPhotos]];
             [self.assetsGroups addObject:group];
             if (--numberOfGroup == 0) {
                 [self.tableView reloadData];
@@ -132,7 +134,6 @@ static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
 #pragma mark - Accessors
 
 - (LCImagePickerController *)imagePicker{
-    
     return (LCImagePickerController *)self.navigationController.parentViewController;
 }
 

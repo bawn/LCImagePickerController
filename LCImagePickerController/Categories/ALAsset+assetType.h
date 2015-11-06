@@ -1,5 +1,5 @@
 //
-//  ALAsset+isEqual.m
+//  ALAsset+assetType.h
 //  LCImagePickerControllerDemo
 //
 //  Created by bawn on 11/5/15.
@@ -10,8 +10,9 @@
 
 
 
-@interface ALAsset (isEqual)
+@interface ALAsset (assetType)
 
-- (BOOL)isEqual:(id)object;
+- (BOOL)isPhoto;
+- (BOOL)isVideo;
 
 @end

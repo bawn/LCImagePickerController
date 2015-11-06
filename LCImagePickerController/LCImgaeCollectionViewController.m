@@ -81,8 +81,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 }
      
 
-- (void)setupAssets
-{
+- (void)setupAssets{
     self.title = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
     if (!_assets){
         self.assets = [[NSMutableArray alloc] init];
@@ -103,8 +102,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 #pragma mark - Notifications
 
-- (void)addNotificationObserver
-{
+- (void)addNotificationObserver{
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     
     [center addObserver:self
@@ -129,8 +127,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
     
 }
 
-- (void)removeNotificationObserver
-{
+- (void)removeNotificationObserver{
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self name:ALAssetsLibraryChangedNotification object:nil];
     [center removeObserver:self name:LCImagePickerSelectedAssetsDidChangeNotification object:nil];
@@ -140,8 +137,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 #pragma mark - Assets Library Changed
 
-- (void)assetsLibraryChanged:(NSNotification *)notification
-{
+- (void)assetsLibraryChanged:(NSNotification *)notification{
     // 重置所有的专辑
     if (notification.userInfo == nil)
         [self performSelectorOnMainThread:@selector(reloadAssets) withObject:nil waitUntilDone:NO];
@@ -154,8 +150,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 #pragma mark - Reload Assets Group
 
-- (void)reloadAssetsGroupForUserInfo:(NSDictionary *)userInfo
-{
+- (void)reloadAssetsGroupForUserInfo:(NSDictionary *)userInfo{
     NSSet *URLs = [userInfo objectForKey:ALAssetLibraryUpdatedAssetGroupsKey];
     NSURL *URL  = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyURL];
     
@@ -170,8 +165,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 #pragma mark - Selected Assets Changed
 
-- (void)selectedAssetsChanged:(NSNotification *)notification
-{
+- (void)selectedAssetsChanged:(NSNotification *)notification{
 //    NSArray *selectedAssets = (NSArray *)notification.object;
     
 //    [[self.toolbarItems objectAtIndex:1] setTitle:[self.picker toolbarTitle]];
@@ -179,19 +173,17 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 //    [self.navigationController setToolbarHidden:(selectedAssets.count == 0) animated:YES];
     
     // Reload assets for calling de/selectAsset method programmatically
-    [self.collectionView reloadData];
+//    [self.collectionView reloadData];
 }
 
-- (void)assetsPickerDidSelectAsset:(NSNotification *)notification
-{
+- (void)assetsPickerDidSelectAsset:(NSNotification *)notification{
     ALAsset *asset = (ALAsset *)notification.object;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.assets indexOfObject:asset] inSection:0];
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     [self updateSelectionOrderLabels];
 }
 
-- (void)assetsPickerDidDeselectAsset:(NSNotification *)notification
-{
+- (void)assetsPickerDidDeselectAsset:(NSNotification *)notification{
     ALAsset *asset = (ALAsset *)notification.object;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.assets indexOfObject:asset] inSection:0];
     [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
@@ -201,8 +193,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 #pragma mark - Reload Assets
 
-- (void)reloadAssets
-{
+- (void)reloadAssets{
     [self.assets removeAllObjects];
     self.assets = nil;
     [self setupAssets];

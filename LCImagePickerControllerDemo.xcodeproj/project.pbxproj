@@ -26,6 +26,7 @@
 		DFA92ADD1BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AD41BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m */; };
 		DFA92ADF1BEC8DCB00EAC9C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA92ADE1BEC8DCB00EAC9C6 /* Main.storyboard */; };
 		DFA92AE21BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AE11BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m */; };
+		DFA92AE81BECD39300EAC9C6 /* ALAsset+assetType.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AE71BECD39300EAC9C6 /* ALAsset+assetType.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,8 @@
 		DFA92ADE1BEC8DCB00EAC9C6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		DFA92AE01BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+LCImagePickerController.h"; sourceTree = "<group>"; };
 		DFA92AE11BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+LCImagePickerController.m"; sourceTree = "<group>"; };
+		DFA92AE61BECD39300EAC9C6 /* ALAsset+assetType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+assetType.h"; sourceTree = "<group>"; };
+		DFA92AE71BECD39300EAC9C6 /* ALAsset+assetType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+assetType.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +226,8 @@
 		DFA92AC01BEC8DA400EAC9C6 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				DFA92AE61BECD39300EAC9C6 /* ALAsset+assetType.h */,
+				DFA92AE71BECD39300EAC9C6 /* ALAsset+assetType.m */,
 				DFA92AE01BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.h */,
 				DFA92AE11BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m */,
 				DFA92AC11BEC8DA400EAC9C6 /* ALAsset+isEqual.h */,
@@ -429,6 +434,7 @@
 				DFA92ADD1BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m in Sources */,
 				DFA92AD61BEC8DA400EAC9C6 /* ALAssetsGroup+isEqual.m in Sources */,
 				DFA92ADC1BEC8DA400EAC9C6 /* LCImagePickerController.m in Sources */,
+				DFA92AE81BECD39300EAC9C6 /* ALAsset+assetType.m in Sources */,
 				DFA92AD81BEC8DA400EAC9C6 /* LCImageCollectionViewCell.m in Sources */,
 				DFA92ADA1BEC8DA400EAC9C6 /* LCImageGroupViewController.m in Sources */,
 			);

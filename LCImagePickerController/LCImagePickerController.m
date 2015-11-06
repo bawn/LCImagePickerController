@@ -25,31 +25,67 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 - (instancetype)init{
     self = [super init];
     if (self) {
-        self.selectedAssets = [NSMutableArray array];
-        self.showsCancelButton = YES;
+        _selectedAssets = [NSMutableArray array];
+        _showsCancelButton = YES;
         [self setupNavigationController];
-        [self addKeyValueObserver];
     }
     return self;
 }
 
+- (void)setSelectedAssets:(NSMutableArray *)selectedAssets{
+    if ([selectedAssets isKindOfClass:[NSMutableArray class]]) {
+        _selectedAssets = selectedAssets;
+    }
+    else{
+        _selectedAssets = [NSMutableArray arrayWithArray:selectedAssets];
+    }
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [self checkAuthorizationStatus];
 }
+
+#pragma mark - Check authorization status
+
+- (void)checkAuthorizationStatus
+{
+    ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
+    switch (status)
+    {
+        case ALAuthorizationStatusNotDetermined:
+//            [self requestAuthorizationStatus];
+            break;
+        case ALAuthorizationStatusRestricted:
+        case ALAuthorizationStatusDenied:
+        {
+//            [self showAccessDenied];
+            break;
+        }
+        case ALAuthorizationStatusAuthorized:// 已授权访问相册
+        default:
+        {
+            
+            break;
+        }
+    }
+}
+
+#pragma mark - Check assets count
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc{
-    [self removeKeyValueObserver];
-}
 
 #pragma mark - Setup Navigation Controller
 
-- (void)setupNavigationController
-{
+- (void)setupNavigationController{
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LCImagePicker" bundle:[NSBundle lcAssetsPickerControllerBundle]];
     LCImageGroupViewController *vc = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([LCImageGroupViewController class])];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
@@ -69,30 +105,9 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 
 
 
-#pragma mark - Key-Value Observers
-
-- (void)addKeyValueObserver{
-    [self addObserver:self forKeyPath:@"selectedAssets" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
-}
-
-- (void)removeKeyValueObserver{
-    [self removeObserver:self forKeyPath:@"selectedAssets"];
-}
-
-#pragma mark - Key-Value Changed
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-    if ([keyPath isEqual:@"selectedAssets"]){
-        
-        [self postAssetsDidChangedNotification:[object valueForKey:keyPath]];
-    }
-}
-
-
 #pragma mark - ALAssetsLibrary
 
-+ (ALAssetsLibrary *)defaultAssetsLibrary
-{
++ (ALAssetsLibrary *)defaultAssetsLibrary{
 
     static dispatch_once_t onceToken;
     static ALAssetsLibrary *library = nil;
@@ -103,8 +118,7 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 }
 
 
-- (ALAssetsLibrary *)assetsLibrary
-{
+- (ALAssetsLibrary *)assetsLibrary{
     if (nil == _assetsLibrary){
         _assetsLibrary = [self.class defaultAssetsLibrary];
     }
@@ -114,66 +128,54 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 
 #pragma mark - Indexed Accessors
 
-- (NSUInteger)countOfSelectedAssets
-{
+- (NSUInteger)countOfSelectedAssets{
     return self.selectedAssets.count;
 }
 
-- (id)objectInSelectedAssetsAtIndex:(NSUInteger)index
-{
+- (id)objectInSelectedAssetsAtIndex:(NSUInteger)index{
     return [self.selectedAssets objectAtIndex:index];
 }
 
 
-- (void)insertObject:(id)object inSelectedAssetsAtIndex:(NSUInteger)index
-{
+- (void)insertObject:(id)object inSelectedAssetsAtIndex:(NSUInteger)index{
     [self.selectedAssets insertObject:object atIndex:index];
 }
 
-- (void)removeObjectFromSelectedAssetsAtIndex:(NSUInteger)index
-{
+- (void)removeObjectFromSelectedAssetsAtIndex:(NSUInteger)index{
     [self.selectedAssets removeObjectAtIndex:index];
 }
 
-- (void)replaceObjectInSelectedAssetsAtIndex:(NSUInteger)index withObject:(ALAsset *)object
-{
+- (void)replaceObjectInSelectedAssetsAtIndex:(NSUInteger)index withObject:(ALAsset *)object{
     [self.selectedAssets replaceObjectAtIndex:index withObject:object];
 }
 
 #pragma mark - Post Notifications
 
-- (void)postAssetsDidChangedNotification:(id)sender
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:LCImagePickerSelectedAssetsDidChangeNotification
-                                                        object:sender];
+- (void)postAssetsDidChangedNotification:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:LCImagePickerSelectedAssetsDidChangeNotification object:sender];
 }
 
-- (void)postDidSelectAssetNotification:(id)sender
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:LCImagePickerDidSelectAssetNotification
-                                                        object:sender];
+- (void)postDidSelectAssetNotification:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:LCImagePickerDidSelectAssetNotification object:sender];
 }
 
 
 - (void)postDidDeselectAssetNotification:(id)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:LCImagePickerDidDeselectAssetNotification
-                                                        object:sender];
+    [[NSNotificationCenter defaultCenter] postNotificationName:LCImagePickerDidDeselectAssetNotification object:sender];
 }
 
 
 
 #pragma mark - Select / Deselect Asset
 
-- (void)selectAsset:(ALAsset *)asset
-{
+- (void)selectAsset:(ALAsset *)asset{
     [self insertObject:asset inSelectedAssetsAtIndex:self.countOfSelectedAssets];
     [self postDidSelectAssetNotification:asset];
     
 }
 
-- (void)deselectAsset:(ALAsset *)asset
-{
+- (void)deselectAsset:(ALAsset *)asset{
     [self removeObjectFromSelectedAssetsAtIndex:[self.selectedAssets indexOfObject:asset]];
     [self postDidDeselectAssetNotification:asset];
 }
@@ -181,8 +183,7 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 
 #pragma mark - Actions
 
-- (void)dismiss:(id)sender
-{
+- (void)dismiss:(id)sender{
     if ([self.delegate respondsToSelector:@selector(imagePickerControllerDidCancel:)]) {
         [self.delegate imagePickerControllerDidCancel:self];
     } else {
@@ -191,14 +192,10 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 }
 
 
-- (void)finishPickingAssets:(id)sender
-{
+- (void)finishPickingAssets:(id)sender{
     if ([self.delegate respondsToSelector:@selector(imagePickerController:didFinishPickingAssets:)]){
         [self.delegate imagePickerController:self didFinishPickingAssets:self.selectedAssets];
     }
 }
-
-
-
 
 @end
