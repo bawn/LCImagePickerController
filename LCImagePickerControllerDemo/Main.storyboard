@@ -16,8 +16,37 @@
                     <view key="view" contentMode="scaleToFill" id="QZz-u4-gbA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6P7-mc-Iad">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="imageCell" id="siD-d9-nt5">
+                                        <rect key="frame" x="0.0" y="92" width="320" height="65"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="siD-d9-nt5" id="33H-ho-2PB">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <animations/>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="q5B-Nb-DDi" id="P7Q-QQ-gW9"/>
+                                    <outlet property="delegate" destination="q5B-Nb-DDi" id="LZc-ck-27K"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6P7-mc-Iad" firstAttribute="leading" secondItem="QZz-u4-gbA" secondAttribute="leading" id="API-fb-BVh"/>
+                            <constraint firstItem="ohI-di-O2J" firstAttribute="top" secondItem="6P7-mc-Iad" secondAttribute="bottom" id="QBU-gf-YMI"/>
+                            <constraint firstAttribute="trailing" secondItem="6P7-mc-Iad" secondAttribute="trailing" id="SUv-Cc-cAb"/>
+                            <constraint firstItem="6P7-mc-Iad" firstAttribute="top" secondItem="QZz-u4-gbA" secondAttribute="top" id="fcg-1E-8FM"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="JXP-Po-8KP">
                         <barButtonItem key="rightBarButtonItem" style="done" id="xaJ-gf-FP6">
@@ -32,10 +61,13 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="6P7-mc-Iad" id="X1U-ha-Sth"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fMQ-bH-vKY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="317" y="322"/>
+            <point key="canvasLocation" x="313" y="322"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bcM-Da-zz3">

@@ -9,7 +9,10 @@
 #import "ViewController.h"
 #import "LCImagePicker.h"
 
-@interface ViewController ()<LCImagePickerControllerDelagate>
+@interface ViewController ()<LCImagePickerControllerDelagate, UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *assetArray;
 
 @end
 
@@ -17,11 +20,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.assetArray = [NSMutableArray array];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
 
 - (IBAction)pickButtonAction:(id)sender{
+    
+    [self showPickerController];
+}
+
+- (void)showPickerController{
+    
+    
     
     LCImageCollectionSelectedView *selectedView = [LCImageCollectionSelectedView appearance];
     selectedView.selectedBackgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.65];
@@ -34,13 +45,15 @@
     navBar.barStyle = UIBarStyleDefault;
     navBar.translucent = NO;
     navBar.barTintColor = [UIColor whiteColor];
-    navBar.tintColor = [UIColor whiteColor];
     
     LCImagePickerController *vc = [[LCImagePickerController alloc] init];
     vc.delegate = self;
+    vc.selectedAssets = [NSMutableArray arrayWithArray:_assetArray];;
     vc.defaultGroupType = ALAssetsGroupSavedPhotos;
     [self presentViewController:vc animated:YES completion:NULL];
+    
 }
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -64,17 +77,20 @@
 }
 
 
-- (UIButton *)backButtonForImagePicker:(LCImagePickerController *)picker{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *backImage = [UIImage imageNamed:@"btn_back"];
-    [button setImage:backImage forState:UIControlStateNormal];
-    button.frame = CGRectMake(0, 0, backImage.size.width, backImage.size.height);
-    return button;
-}
+//- (UIButton *)backButtonForImagePicker:(LCImagePickerController *)picker{
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    UIImage *backImage = [UIImage imageNamed:@"btn_back"];
+//    [button setImage:backImage forState:UIControlStateNormal];
+//    button.frame = CGRectMake(0, 0, backImage.size.width, backImage.size.height);
+//    return button;
+//}
 
 
 - (void)imagePickerController:(LCImagePickerController *)picker didFinishPickingAssets:(NSArray *)assets{
     [picker dismissViewControllerAnimated:YES completion:NULL];
+    [self.assetArray removeAllObjects];
+    [self.assetArray addObjectsFromArray:assets];
+    [self.tableView reloadData];
 
 }
 
@@ -85,6 +101,27 @@
         return NO;
     }
     return YES;
+}
+
+
+
+#pragma mark - UITableView Method
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return _assetArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *CellIdentifier = @"imageCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    cell.imageView.image = [UIImage imageWithCGImage:[self.assetArray[indexPath.row] thumbnail]];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self showPickerController];
+    
 }
 
 

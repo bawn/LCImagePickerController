@@ -21,11 +21,20 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 
 @implementation LCImagePickerController
 
+
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        self.selectedAssets = [NSMutableArray array];
+        self.showsCancelButton = YES;
+        [self setupNavigationController];
+        [self addKeyValueObserver];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.selectedAssets = [NSMutableArray array];
-    self.showsCancelButton = YES;
-    [self setupNavigationController];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,6 +42,9 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc{
+    [self removeKeyValueObserver];
+}
 
 #pragma mark - Setup Navigation Controller
 
@@ -56,6 +68,25 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 }
 
 
+
+#pragma mark - Key-Value Observers
+
+- (void)addKeyValueObserver{
+    [self addObserver:self forKeyPath:@"selectedAssets" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+}
+
+- (void)removeKeyValueObserver{
+    [self removeObserver:self forKeyPath:@"selectedAssets"];
+}
+
+#pragma mark - Key-Value Changed
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    if ([keyPath isEqual:@"selectedAssets"]){
+        
+        [self postAssetsDidChangedNotification:[object valueForKey:keyPath]];
+    }
+}
 
 
 #pragma mark - ALAssetsLibrary
