@@ -7,21 +7,22 @@
 //
 
 #import "LCImageGroupViewController.h"
-#import "LCImagePickerViewController.h"
+#import "LCImagePickerController.h"
 #import "LCImageGroupTableViewCell.h"
 #import "LCImgaeCollectionViewController.h"
 #import "LCImagePickerDefines.h"
 #import "LCImagePickerViewController+Internal.h"
+#import "NSBundle+LCImagePickerController.h"
 
 static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
 
 @interface LCImageGroupViewController ()<UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, weak) LCImagePickerViewController *imagePicker;
+@property (nonatomic, weak) LCImagePickerController *imagePicker;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *assetsGroups;
 @property (nonatomic, strong) ALAssetsGroup *defaultGroup;
-@property (nonatomic, strong) NSBundle *assetBundle;
+
 
 @end
 
@@ -37,11 +38,6 @@ static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
 
 - (void)setupViews{
     self.tableView.rowHeight = LCImageGroupCellHeight;
-    self.assetBundle = [NSBundle bundleForClass:[self.imagePicker class]];
-    NSString *bundlePath = [self.assetBundle pathForResource:NSStringFromClass([self.imagePicker class]) ofType:@"bundle"];
-    if (bundlePath) {
-        self.assetBundle = [NSBundle bundleWithPath:bundlePath];
-    }
 
 }
 
@@ -125,7 +121,7 @@ static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
 
 - (void)pushDefaultAssetsGroup:(ALAssetsGroup *)group{
     if (group){
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LCImagePicker" bundle:_assetBundle];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LCImagePicker" bundle:[NSBundle lcAssetsPickerControllerBundle]];
         LCImgaeCollectionViewController *vc = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([LCImgaeCollectionViewController class])];
         vc.assetsGroup = group;
         self.navigationController.viewControllers = @[self, vc];
@@ -135,9 +131,9 @@ static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
 
 #pragma mark - Accessors
 
-- (LCImagePickerViewController *)imagePicker{
+- (LCImagePickerController *)imagePicker{
     
-    return (LCImagePickerViewController *)self.navigationController.parentViewController;
+    return (LCImagePickerController *)self.navigationController.parentViewController;
 }
 
 
@@ -156,7 +152,7 @@ static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LCImagePicker" bundle:_assetBundle];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LCImagePicker" bundle:[NSBundle lcAssetsPickerControllerBundle]];
     LCImgaeCollectionViewController *vc = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([LCImgaeCollectionViewController class])];
     vc.assetsGroup = _assetsGroups[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];

@@ -7,7 +7,7 @@
 //
 
 #import "LCImgaeCollectionViewController.h"
-#import "LCImagePickerViewController.h"
+#import "LCImagePickerController.h"
 #import "LCImageCollectionViewCell.h"
 #import "LCImagePickerViewController+Internal.h"
 
@@ -15,7 +15,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 @interface LCImgaeCollectionViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (nonatomic, weak) LCImagePickerViewController *imagePicker;
+@property (nonatomic, weak) LCImagePickerController *imagePicker;
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) IBOutlet UICollectionViewFlowLayout *flowLayout;
 @property (nonatomic, strong) NSMutableArray *assets;
@@ -223,9 +223,9 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 #pragma mark - Accessors
 
-- (LCImagePickerViewController *)imagePicker
+- (LCImagePickerController *)imagePicker
 {
-    return (LCImagePickerViewController *)self.navigationController.parentViewController;
+    return (LCImagePickerController *)self.navigationController.parentViewController;
 }
 
 - (ALAsset *)assetAtIndexPath:(NSIndexPath *)indexPath

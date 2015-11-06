@@ -6,20 +6,20 @@
 //  Copyright © 2015 bawn. All rights reserved.
 //
 
-#import "LCImagePickerViewController.h"
+#import "LCImagePickerController.h"
 #import "LCImageGroupViewController.h"
 #import "LCImagePickerDefines.h"
+#import "NSBundle+LCImagePickerController.h"
 
 NSString * const LCImagePickerSelectedAssetsDidChangeNotification = @"LCImagePickerSelectedAssetsDidChangeNotification";
 NSString * const LCImagePickerDidSelectAssetNotification = @"LCImagePickerDidSelectAssetNotification";
 NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidDeselectAssetNotification";
 
-@interface LCImagePickerViewController ()<UINavigationControllerDelegate>
-
+@interface LCImagePickerController ()<UINavigationControllerDelegate>
 
 @end
 
-@implementation LCImagePickerViewController
+@implementation LCImagePickerController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,7 +38,7 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 
 - (void)setupNavigationController
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LCImagePicker" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LCImagePicker" bundle:[NSBundle lcAssetsPickerControllerBundle]];
     LCImageGroupViewController *vc = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([LCImageGroupViewController class])];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     
@@ -138,7 +138,6 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 {
     [self insertObject:asset inSelectedAssetsAtIndex:self.countOfSelectedAssets];
     [self postDidSelectAssetNotification:asset];
-    NSLog(@"%@", asset);
     
 }
 
@@ -146,7 +145,6 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 {
     [self removeObjectFromSelectedAssetsAtIndex:[self.selectedAssets indexOfObject:asset]];
     [self postDidDeselectAssetNotification:asset];
-//    NSLog(@"%@", self.selectedAssets);
 }
 
 

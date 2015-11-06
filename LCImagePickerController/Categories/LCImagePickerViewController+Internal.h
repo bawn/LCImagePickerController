@@ -6,9 +6,9 @@
 //  Copyright © 2015 bawn. All rights reserved.
 //
 
-#import "LCImagePickerViewController.h"
+#import "LCImagePickerController.h"
 
-@interface LCImagePickerViewController (Internal)
+@interface LCImagePickerController (Internal)
 
 - (void)dismiss:(id)sender;
 - (void)finishPickingAssets:(id)sender;

@@ -9,7 +9,7 @@
 #ifndef LCImagePicker_h
 #define LCImagePicker_h
 
-#import "LCImagePickerViewController.h"
+#import "LCImagePickerController.h"
 #import "LCImageCollectionSelectedView.h"
 
 #endif /* LCImagePicker_h */

@@ -22,9 +22,10 @@
 		DFA92AD91BEC8DA400EAC9C6 /* LCImageGroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92ACB1BEC8DA400EAC9C6 /* LCImageGroupTableViewCell.m */; };
 		DFA92ADA1BEC8DA400EAC9C6 /* LCImageGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92ACD1BEC8DA400EAC9C6 /* LCImageGroupViewController.m */; };
 		DFA92ADB1BEC8DA400EAC9C6 /* LCImagePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA92ACF1BEC8DA400EAC9C6 /* LCImagePicker.storyboard */; };
-		DFA92ADC1BEC8DA400EAC9C6 /* LCImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AD21BEC8DA400EAC9C6 /* LCImagePickerViewController.m */; };
+		DFA92ADC1BEC8DA400EAC9C6 /* LCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AD21BEC8DA400EAC9C6 /* LCImagePickerController.m */; };
 		DFA92ADD1BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AD41BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m */; };
 		DFA92ADF1BEC8DCB00EAC9C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA92ADE1BEC8DCB00EAC9C6 /* Main.storyboard */; };
+		DFA92AE21BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AE11BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,11 +80,13 @@
 		DFA92ACE1BEC8DA400EAC9C6 /* LCImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImagePicker.h; sourceTree = "<group>"; };
 		DFA92ACF1BEC8DA400EAC9C6 /* LCImagePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LCImagePicker.storyboard; sourceTree = "<group>"; };
 		DFA92AD01BEC8DA400EAC9C6 /* LCImagePickerDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImagePickerDefines.h; sourceTree = "<group>"; };
-		DFA92AD11BEC8DA400EAC9C6 /* LCImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImagePickerViewController.h; sourceTree = "<group>"; };
-		DFA92AD21BEC8DA400EAC9C6 /* LCImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCImagePickerViewController.m; sourceTree = "<group>"; };
+		DFA92AD11BEC8DA400EAC9C6 /* LCImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImagePickerController.h; sourceTree = "<group>"; };
+		DFA92AD21BEC8DA400EAC9C6 /* LCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCImagePickerController.m; sourceTree = "<group>"; };
 		DFA92AD31BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImgaeCollectionViewController.h; sourceTree = "<group>"; };
 		DFA92AD41BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCImgaeCollectionViewController.m; sourceTree = "<group>"; };
 		DFA92ADE1BEC8DCB00EAC9C6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		DFA92AE01BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+LCImagePickerController.h"; sourceTree = "<group>"; };
+		DFA92AE11BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+LCImagePickerController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,8 +212,8 @@
 				DFA92ACE1BEC8DA400EAC9C6 /* LCImagePicker.h */,
 				DFA92ACF1BEC8DA400EAC9C6 /* LCImagePicker.storyboard */,
 				DFA92AD01BEC8DA400EAC9C6 /* LCImagePickerDefines.h */,
-				DFA92AD11BEC8DA400EAC9C6 /* LCImagePickerViewController.h */,
-				DFA92AD21BEC8DA400EAC9C6 /* LCImagePickerViewController.m */,
+				DFA92AD11BEC8DA400EAC9C6 /* LCImagePickerController.h */,
+				DFA92AD21BEC8DA400EAC9C6 /* LCImagePickerController.m */,
 				DFA92AD31BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.h */,
 				DFA92AD41BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m */,
 			);
@@ -220,6 +223,8 @@
 		DFA92AC01BEC8DA400EAC9C6 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				DFA92AE01BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.h */,
+				DFA92AE11BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m */,
 				DFA92AC11BEC8DA400EAC9C6 /* ALAsset+isEqual.h */,
 				DFA92AC21BEC8DA400EAC9C6 /* ALAsset+isEqual.m */,
 				DFA92AC31BEC8DA400EAC9C6 /* ALAssetsGroup+isEqual.h */,
@@ -414,6 +419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFA92AE21BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m in Sources */,
 				DFA92AD91BEC8DA400EAC9C6 /* LCImageGroupTableViewCell.m in Sources */,
 				DFA92AD51BEC8DA400EAC9C6 /* ALAsset+isEqual.m in Sources */,
 				DFA92A941BEC8D7A00EAC9C6 /* ViewController.m in Sources */,
@@ -422,7 +428,7 @@
 				DFA92AD71BEC8DA400EAC9C6 /* LCImageCollectionSelectedView.m in Sources */,
 				DFA92ADD1BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m in Sources */,
 				DFA92AD61BEC8DA400EAC9C6 /* ALAssetsGroup+isEqual.m in Sources */,
-				DFA92ADC1BEC8DA400EAC9C6 /* LCImagePickerViewController.m in Sources */,
+				DFA92ADC1BEC8DA400EAC9C6 /* LCImagePickerController.m in Sources */,
 				DFA92AD81BEC8DA400EAC9C6 /* LCImageCollectionViewCell.m in Sources */,
 				DFA92ADA1BEC8DA400EAC9C6 /* LCImageGroupViewController.m in Sources */,
 			);

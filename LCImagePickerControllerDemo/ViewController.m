@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "LCImagePicker.h"
 
-@interface ViewController ()<LCImagePickerViewControllerDelagate>
+@interface ViewController ()<LCImagePickerControllerDelagate>
 
 @end
 
@@ -30,13 +30,13 @@
     selectedView.badgeColor = [UIColor colorWithRed:255.0f/255.0f green:226.0f/255.0 blue:0.0f alpha:1.0f];
     
     
-    UINavigationBar *navBar = [UINavigationBar appearanceWhenContainedIn:[LCImagePickerViewController class], nil];
+    UINavigationBar *navBar = [UINavigationBar appearanceWhenContainedIn:[LCImagePickerController class], nil];
     navBar.barStyle = UIBarStyleDefault;
     navBar.translucent = NO;
     navBar.barTintColor = [UIColor whiteColor];
     navBar.tintColor = [UIColor whiteColor];
     
-    LCImagePickerViewController *vc = [[LCImagePickerViewController alloc] init];
+    LCImagePickerController *vc = [[LCImagePickerController alloc] init];
     vc.delegate = self;
     vc.defaultGroupType = ALAssetsGroupSavedPhotos;
     [self presentViewController:vc animated:YES completion:NULL];
@@ -50,7 +50,7 @@
 
 #pragma mark - LCImagePickerViewControllerDelagate Method
 
-- (UIButton *)doneButtonForImagePicker:(LCImagePickerViewController *)picker{
+- (UIButton *)doneButtonForImagePicker:(LCImagePickerController *)picker{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0, 0, 52, 25);
     button.layer.cornerRadius = 4.0f;
@@ -64,7 +64,7 @@
 }
 
 
-- (UIButton *)backButtonForImagePicker:(LCImagePickerViewController *)picker{
+- (UIButton *)backButtonForImagePicker:(LCImagePickerController *)picker{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *backImage = [UIImage imageNamed:@"btn_back"];
     [button setImage:backImage forState:UIControlStateNormal];
@@ -73,18 +73,14 @@
 }
 
 
-- (void)imagePickerController:(LCImagePickerViewController *)picker didFinishPickingAssets:(NSArray *)assets{
-    [picker dismissViewControllerAnimated:NO completion:NULL];
-    
-    //    UIViewController *vc = [[UIViewController alloc] init];
-    //    vc.view.backgroundColor = [UIColor whiteColor];
-    //    [picker.navigationController pushViewController:vc animated:YES];
-    //    NSLog(@"%@", assets);
+- (void)imagePickerController:(LCImagePickerController *)picker didFinishPickingAssets:(NSArray *)assets{
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+
 }
 
 // 限制选择数量
 
-- (BOOL)imagePickerController:(LCImagePickerViewController *)picker shouldSelectAsset:(ALAsset *)asset{
+- (BOOL)imagePickerController:(LCImagePickerController *)picker shouldSelectAsset:(ALAsset *)asset{
     if (picker.selectedAssets.count >= 9) {
         return NO;
     }
