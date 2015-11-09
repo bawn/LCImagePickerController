@@ -8,11 +8,13 @@
 
 #import "ViewController.h"
 #import "LCImagePicker.h"
+#import "RSKImageCropViewController.h"
 
-@interface ViewController ()<LCImagePickerControllerDelagate, UITableViewDataSource, UITableViewDelegate>
+@interface ViewController ()<LCImagePickerControllerDelagate, UITableViewDataSource, UITableViewDelegate, RSKImageCropViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *assetArray;
+
 
 @end
 
@@ -49,13 +51,11 @@
     
     LCImagePickerController *vc = [[LCImagePickerController alloc] init];
     vc.delegate = self;
-    vc.selectedAssets = [NSMutableArray arrayWithArray:_assetArray];;
+//    vc.selectedAssets = [NSMutableArray arrayWithArray:_assetArray];;
     vc.defaultGroupType = ALAssetsGroupSavedPhotos;
     [self presentViewController:vc animated:YES completion:NULL];
     
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -64,7 +64,7 @@
 
 #pragma mark - LCImagePickerViewControllerDelagate Method
 
-- (UIButton *)doneButtonForImagePicker:(LCImagePickerController *)picker{
+- (UIButton *)hqDoneButtonForImagePicker:(LCImagePickerController *)picker{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0, 0, 52, 25);
     button.layer.cornerRadius = 4.0f;
@@ -77,14 +77,21 @@
     return button;
 }
 
+- (UIViewController *)hqPushViewControllerForImagePicker:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset{
+    UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage scale:1.0f orientation:UIImageOrientationUp];
+    RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:image];
+    imageCropVC.delegate = self;
+    return imageCropVC;
+}
 
-//- (UIButton *)backButtonForImagePicker:(LCImagePickerController *)picker{
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//    UIImage *backImage = [UIImage imageNamed:@"btn_back"];
-//    [button setImage:backImage forState:UIControlStateNormal];
-//    button.frame = CGRectMake(0, 0, backImage.size.width, backImage.size.height);
-//    return button;
-//}
+
+- (UIButton *)backButtonForImagePicker:(LCImagePickerController *)picker{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *backImage = [UIImage imageNamed:@"btn_back"];
+    [button setImage:backImage forState:UIControlStateNormal];
+    button.frame = CGRectMake(0, 0, backImage.size.width, backImage.size.height);
+    return button;
+}
 
 
 - (void)imagePickerController:(LCImagePickerController *)picker didFinishPickingAssets:(NSArray *)assets{
@@ -94,6 +101,8 @@
     [self.tableView reloadData];
 }
 
+
+
 // 限制选择数量
 
 - (BOOL)imagePickerController:(LCImagePickerController *)picker shouldSelectAsset:(ALAsset *)asset{
@@ -102,8 +111,6 @@
     }
     return YES;
 }
-
-
 
 #pragma mark - UITableView Method
 
@@ -124,6 +131,38 @@
     
 }
 
+
+- (void)imageCropViewControllerDidCancelCrop:(RSKImageCropViewController *)controller
+{
+    [controller.navigationController popViewControllerAnimated:YES];
+}
+
+// The original image has been cropped.
+- (void)imageCropViewController:(RSKImageCropViewController *)controller
+                   didCropImage:(UIImage *)croppedImage
+                  usingCropRect:(CGRect)cropRect
+{
+//    self.imageView.image = croppedImage;
+//    [controller.navigationController popToRootViewControllerAnimated:YES];
+    [controller dismissViewControllerAnimated:YES completion:NULL];
+}
+
+// The original image has been cropped. Additionally provides a rotation angle used to produce image.
+//- (UIBezierPath *)imageCropViewControllerCustomMaskPath:(RSKImageCropViewController *)controller
+//{
+//    CGRect rect = controller.maskRect;
+//    CGPoint point1 = CGPointMake(CGRectGetMinX(rect), CGRectGetMaxY(rect));
+//    CGPoint point2 = CGPointMake(CGRectGetMaxX(rect), CGRectGetMaxY(rect));
+//    CGPoint point3 = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));
+//    
+//    UIBezierPath *triangle = [UIBezierPath bezierPath];
+//    [triangle moveToPoint:point1];
+//    [triangle addLineToPoint:point2];
+//    [triangle addLineToPoint:point3];
+//    [triangle closePath];
+//    
+//    return triangle;
+//}
 
 
 @end

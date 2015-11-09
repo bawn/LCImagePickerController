@@ -10,6 +10,7 @@
 
 @interface LCImageCollectionSelectedView : UIView
 
+@property (nonatomic, assign) BOOL showsSelectionIndex;
 @property (nonatomic, assign) NSUInteger selectionIndex;
 
 @property (nonatomic, weak) UIColor *selectedBackgroundColor UI_APPEARANCE_SELECTOR;

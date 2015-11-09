@@ -54,6 +54,9 @@ extern NSString * const LCImagePickerDidDeselectAssetNotification;
 - (UIButton *)backButtonForImagePicker:(LCImagePickerController *)picker;
 - (UIButton *)cancleButtonForImagePicker:(LCImagePickerController *)picker;
 
+- (UIButton *)hqDoneButtonForImagePicker:(LCImagePickerController *)picker;
+- (UIViewController *)hqPushViewControllerForImagePicker:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset;
+
 
 @end
 @interface LCImagePickerController : UIViewController
@@ -62,6 +65,7 @@ extern NSString * const LCImagePickerDidDeselectAssetNotification;
 @property (nonatomic, strong) NSMutableArray *selectedAssets;
 @property (nonatomic, assign) ALAssetsGroupType defaultGroupType;
 @property (nonatomic, assign) BOOL showsCancelButton;
+@property (nonatomic, assign) BOOL showsNumberOfSelectedImages;// 是否显示选择数量
 @property (nonatomic, weak) id <LCImagePickerControllerDelagate> delegate;
 
 - (void)selectAsset:(ALAsset *)asset;

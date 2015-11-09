@@ -56,6 +56,13 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
         [doneButton addTarget:self.imagePicker action:@selector(finishPickingAssets:) forControlEvents:UIControlEventTouchUpInside];
     }
+//    else if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(hqDoneButtonForImagePicker:)]){
+//        UIButton *doneButton = [self.imagePicker.delegate hqDoneButtonForImagePicker:self.imagePicker];
+//        [doneButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
+//        [doneButton addTarget:self action:@selector(push:) forControlEvents:UIControlEventTouchUpInside];
+//
+//    }
     else{
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self.imagePicker action:@selector(finishPickingAssets:)];
         self.navigationItem.rightBarButtonItem = rightItem;
@@ -67,6 +74,13 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
         [backButton addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
+
+//- (void)push:(id)sender{
+//    if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(hqPushViewControllerForImagePicker:)]){
+//        UIViewController *vc = [self.imagePicker.delegate hqPushViewControllerForImagePicker:self.imagePicker];
+//        [self.navigationController pushViewController:vc animated:YES];
+//    }
+//}
 
 - (void)backAction:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -212,7 +226,22 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
     ALAsset *asset = (ALAsset *)notification.object;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.assets indexOfObject:asset] inSection:0];
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-    [self updateSelectionOrderLabels];
+    if (self.imagePicker.showsNumberOfSelectedImages) {
+        [self updateSelectionOrderLabels];
+    }
+    else{
+        if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(hqPushViewControllerForImagePicker:selectAsset:)]){
+            UIViewController *vc = [self.imagePicker.delegate hqPushViewControllerForImagePicker:self.imagePicker selectAsset:asset];
+            if ([vc respondsToSelector:@selector(setDelegate:)]) {
+                [vc setValue:self.imagePicker.delegate forKey:@"delegate"];
+            }
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else{
+            [self.imagePicker finishPickingAssets:nil];
+
+        }
+    }
 }
 
 - (void)assetsPickerDidDeselectAsset:(NSNotification *)notification{
@@ -234,8 +263,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 #pragma mark - Update Selection Order Labels
 
-- (void)updateSelectionOrderLabels
-{
+- (void)updateSelectionOrderLabels{
     for (NSIndexPath *indexPath in [self.collectionView indexPathsForSelectedItems]){
         ALAsset *asset = [self assetAtIndexPath:indexPath];
         LCImageCollectionViewCell *cell = (LCImageCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
@@ -246,13 +274,11 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 #pragma mark - Accessors
 
-- (LCImagePickerController *)imagePicker
-{
+- (LCImagePickerController *)imagePicker{
     return (LCImagePickerController *)self.navigationController.parentViewController;
 }
 
-- (ALAsset *)assetAtIndexPath:(NSIndexPath *)indexPath
-{
+- (ALAsset *)assetAtIndexPath:(NSIndexPath *)indexPath{
     return (self.assets.count > 0) ? self.assets[indexPath.item] : nil;
 }
 
@@ -265,19 +291,20 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     LCImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kImageCollectionCellIdentifier forIndexPath:indexPath];
+    cell.showsSelectionIndex = self.imagePicker.showsNumberOfSelectedImages;
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
-    if ([[self.imagePicker.selectedAssets copy] containsObject:asset]){
+    if ([self.imagePicker.selectedAssets containsObject:asset]){
         cell.selected = YES;
         cell.selectionIndex = [self.imagePicker.selectedAssets indexOfObject:asset];
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     }
+    
     [cell configWithItem:_assets[indexPath.row]];
     return cell;
 }
 
 
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     if ([self.imagePicker.delegate respondsToSelector:@selector(imagePickerController:shouldSelectAsset:)]){
         return [self.imagePicker.delegate imagePickerController:self.imagePicker shouldSelectAsset:asset];
@@ -290,7 +317,6 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     [self.imagePicker selectAsset:asset];
-    
     if ([self.imagePicker.delegate respondsToSelector:@selector(imagePickerController:didSelectAsset:)]){
         [self.imagePicker.delegate imagePickerController:self.imagePicker didSelectAsset:asset];
     }

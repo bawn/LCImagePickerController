@@ -12,6 +12,7 @@
 
 - (void)configWithItem:(id)item;
 
+@property (nonatomic, assign) BOOL showsSelectionIndex;
 @property (nonatomic, assign) NSUInteger selectionIndex;
 
 @end

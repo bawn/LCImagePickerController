@@ -53,6 +53,18 @@
     self.selectionIndexLabel.backgroundColor = color;
 }
 
+- (void)setShowsSelectionIndex:(BOOL)showsSelectionIndex{
+    _showsSelectionIndex = showsSelectionIndex;
+    
+    if (showsSelectionIndex){
+        self.selectionIndexLabel.hidden = NO;
+    }
+    else{
+        self.selectionIndexLabel.hidden = YES;
+    }
+}
+
+
 - (void)initUI{
     // 蒙层颜色
     self.backgroundColor = LCImageCollectionSelectedBackgroundColor;
