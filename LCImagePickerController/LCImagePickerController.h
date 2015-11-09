@@ -54,8 +54,8 @@ extern NSString * const LCImagePickerDidDeselectAssetNotification;
 - (UIButton *)backButtonForImagePicker:(LCImagePickerController *)picker;
 - (UIButton *)cancleButtonForImagePicker:(LCImagePickerController *)picker;
 
-- (UIButton *)hqDoneButtonForImagePicker:(LCImagePickerController *)picker;
-- (UIViewController *)hqPushViewControllerForImagePicker:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset;
+
+- (UIViewController *)singleSelectVCPushForImagePicker:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset;
 
 
 @end

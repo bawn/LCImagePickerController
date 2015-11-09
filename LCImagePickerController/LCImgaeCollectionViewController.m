@@ -56,13 +56,6 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
         [doneButton addTarget:self.imagePicker action:@selector(finishPickingAssets:) forControlEvents:UIControlEventTouchUpInside];
     }
-//    else if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(hqDoneButtonForImagePicker:)]){
-//        UIButton *doneButton = [self.imagePicker.delegate hqDoneButtonForImagePicker:self.imagePicker];
-//        [doneButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
-//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
-//        [doneButton addTarget:self action:@selector(push:) forControlEvents:UIControlEventTouchUpInside];
-//
-//    }
     else{
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self.imagePicker action:@selector(finishPickingAssets:)];
         self.navigationItem.rightBarButtonItem = rightItem;
@@ -75,12 +68,6 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
     }
 }
 
-//- (void)push:(id)sender{
-//    if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(hqPushViewControllerForImagePicker:)]){
-//        UIViewController *vc = [self.imagePicker.delegate hqPushViewControllerForImagePicker:self.imagePicker];
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }
-//}
 
 - (void)backAction:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -230,8 +217,8 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
         [self updateSelectionOrderLabels];
     }
     else{
-        if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(hqPushViewControllerForImagePicker:selectAsset:)]){
-            UIViewController *vc = [self.imagePicker.delegate hqPushViewControllerForImagePicker:self.imagePicker selectAsset:asset];
+        if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(singleSelectVCPushForImagePicker:selectAsset:)]){
+            UIViewController *vc = [self.imagePicker.delegate singleSelectVCPushForImagePicker:self.imagePicker selectAsset:asset];
             if ([vc respondsToSelector:@selector(setDelegate:)]) {
                 [vc setValue:self.imagePicker.delegate forKey:@"delegate"];
             }

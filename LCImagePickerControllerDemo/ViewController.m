@@ -77,7 +77,7 @@
     return button;
 }
 
-- (UIViewController *)hqPushViewControllerForImagePicker:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset{
+- (UIViewController *)singleSelectVCPushForImagePicker:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset{
     UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage scale:1.0f orientation:UIImageOrientationUp];
     RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:image];
     imageCropVC.delegate = self;
