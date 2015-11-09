@@ -27,6 +27,7 @@
 		DFA92ADF1BEC8DCB00EAC9C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA92ADE1BEC8DCB00EAC9C6 /* Main.storyboard */; };
 		DFA92AE21BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AE11BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m */; };
 		DFA92AE81BECD39300EAC9C6 /* ALAsset+assetType.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92AE71BECD39300EAC9C6 /* ALAsset+assetType.m */; };
+		DFF54EE91BF03A8F008082F4 /* LCImageCollectionBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF54EE81BF03A8F008082F4 /* LCImageCollectionBackgroundView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,8 @@
 		DFA92AE11BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+LCImagePickerController.m"; sourceTree = "<group>"; };
 		DFA92AE61BECD39300EAC9C6 /* ALAsset+assetType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+assetType.h"; sourceTree = "<group>"; };
 		DFA92AE71BECD39300EAC9C6 /* ALAsset+assetType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+assetType.m"; sourceTree = "<group>"; };
+		DFF54EE71BF03A8F008082F4 /* LCImageCollectionBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImageCollectionBackgroundView.h; sourceTree = "<group>"; };
+		DFF54EE81BF03A8F008082F4 /* LCImageCollectionBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCImageCollectionBackgroundView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +222,8 @@
 				DFA92AD21BEC8DA400EAC9C6 /* LCImagePickerController.m */,
 				DFA92AD31BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.h */,
 				DFA92AD41BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m */,
+				DFF54EE71BF03A8F008082F4 /* LCImageCollectionBackgroundView.h */,
+				DFF54EE81BF03A8F008082F4 /* LCImageCollectionBackgroundView.m */,
 			);
 			path = LCImagePickerController;
 			sourceTree = SOURCE_ROOT;
@@ -429,6 +434,7 @@
 				DFA92AD51BEC8DA400EAC9C6 /* ALAsset+isEqual.m in Sources */,
 				DFA92A941BEC8D7A00EAC9C6 /* ViewController.m in Sources */,
 				DFA92A911BEC8D7A00EAC9C6 /* AppDelegate.m in Sources */,
+				DFF54EE91BF03A8F008082F4 /* LCImageCollectionBackgroundView.m in Sources */,
 				DFA92A8E1BEC8D7A00EAC9C6 /* main.m in Sources */,
 				DFA92AD71BEC8DA400EAC9C6 /* LCImageCollectionSelectedView.m in Sources */,
 				DFA92ADD1BEC8DA400EAC9C6 /* LCImgaeCollectionViewController.m in Sources */,

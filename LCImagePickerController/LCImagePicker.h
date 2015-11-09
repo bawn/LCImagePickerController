@@ -11,5 +11,6 @@
 
 #import "LCImagePickerController.h"
 #import "LCImageCollectionSelectedView.h"
+#import "LCImageCollectionBackgroundView.h"
 
 #endif /* LCImagePicker_h */

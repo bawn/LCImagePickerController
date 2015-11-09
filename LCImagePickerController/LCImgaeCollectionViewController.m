@@ -10,15 +10,19 @@
 #import "LCImagePickerController.h"
 #import "LCImageCollectionViewCell.h"
 #import "LCImagePickerViewController+Internal.h"
+#import "LCImageCollectionBackgroundView.h"
+#import "Masonry.h"
 
 static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 @interface LCImgaeCollectionViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, weak) LCImagePickerController *imagePicker;
+@property (nonatomic, assign) BOOL didLayoutSubviews;
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) IBOutlet UICollectionViewFlowLayout *flowLayout;
 @property (nonatomic, strong) NSMutableArray *assets;
+
 
 @end
 
@@ -31,11 +35,19 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
     [self addNotificationObserver];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self setupButtons];
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self scrollToBottomIfNeeded];
 }
 
+// 滚动到底部
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    if (!self.didLayoutSubviews && self.assets.count > 0){
+        [self scrollToBottomIfNeeded];
+        self.didLayoutSubviews = YES;
+    }
+}
 
 - (void)setupButtons{
     if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(doneButtonForImagePicker:)]) {
@@ -70,6 +82,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
     [self removeNotificationObserver];
 }
 
+
 - (void)initUI{
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.collectionView.allowsMultipleSelection = YES;
@@ -78,6 +91,8 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
     CGFloat size = ([UIScreen mainScreen].bounds.size.width - 3.0f)/4;
     self.flowLayout.itemSize = CGSizeMake(size, size);
     self.flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.collectionView.backgroundColor = [LCImageCollectionBackgroundView appearance].collectionBackgroundColor;
+    [self setupButtons];
 }
      
 
@@ -95,9 +110,26 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
             [self.assets addObject:result];
         }
     }];
-    
 }
 
+
+#pragma mark - Scroll to bottom
+
+- (void)scrollToBottomIfNeeded{
+    BOOL shouldScrollToBottom;
+    
+    if ([self.imagePicker.delegate respondsToSelector:@selector(imagePickerController:shouldScrollToBottomForAssetCollection:)]){
+        shouldScrollToBottom = [self.imagePicker.delegate imagePickerController:self.imagePicker shouldScrollToBottomForAssetCollection:self.collectionView];
+    }
+    else{
+        shouldScrollToBottom = YES;
+    }
+    
+    if (shouldScrollToBottom){
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.assets.count - 1 inSection:0];
+        [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+    }
+}
 
 
 #pragma mark - Notifications

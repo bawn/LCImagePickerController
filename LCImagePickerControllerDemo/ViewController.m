@@ -32,14 +32,15 @@
 
 - (void)showPickerController{
     
-    
-    
+
     LCImageCollectionSelectedView *selectedView = [LCImageCollectionSelectedView appearance];
     selectedView.selectedBackgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.65];
     selectedView.textFont = [UIFont systemFontOfSize:13.0f];
     selectedView.textColor = [UIColor blackColor];
     selectedView.badgeColor = [UIColor colorWithRed:255.0f/255.0f green:226.0f/255.0 blue:0.0f alpha:1.0f];
     
+//    LCImageCollectionBackgroundView *backgroundView = [LCImageCollectionBackgroundView appearance];
+//    backgroundView.collectionBackgroundColor = [UIColor redColor];
     
     UINavigationBar *navBar = [UINavigationBar appearanceWhenContainedIn:[LCImagePickerController class], nil];
     navBar.barStyle = UIBarStyleDefault;
@@ -91,7 +92,6 @@
     [self.assetArray removeAllObjects];
     [self.assetArray addObjectsFromArray:assets];
     [self.tableView reloadData];
-
 }
 
 // 限制选择数量

@@ -48,6 +48,8 @@ extern NSString * const LCImagePickerDidDeselectAssetNotification;
 
 - (void)imagePickerController:(LCImagePickerController *)picker didUnhighlightAsset:(ALAsset *)asset;
 
+- (BOOL)imagePickerController:(LCImagePickerController *)picker shouldScrollToBottomForAssetCollection:(UICollectionView *)collectionView;
+
 - (UIButton *)doneButtonForImagePicker:(LCImagePickerController *)picker;
 - (UIButton *)backButtonForImagePicker:(LCImagePickerController *)picker;
 - (UIButton *)cancleButtonForImagePicker:(LCImagePickerController *)picker;

@@ -18,6 +18,6 @@ static CGFloat const LCImageGroupCellHeight = 96.0f;
 #define LCImageCollectionSelectedBackgroundColor  [[UIColor blackColor] colorWithAlphaComponent:0.7]
 #define LCImageCollectionSelectedViewFont         [UIFont preferredFontForTextStyle:UIFontTextStyleBody]
 #define LCImageCollectionSelectedTextColor        [UIColor blackColor]
-
+#define LCImageCollectionBackgroundColor          [UIColor blackColor]
 
 #endif /* LCImagePickerDefines_h */
