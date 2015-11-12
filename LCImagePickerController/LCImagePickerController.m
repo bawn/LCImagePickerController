@@ -17,6 +17,10 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 
 @interface LCImagePickerController ()<UINavigationControllerDelegate>
 
+@property (nonatomic, strong) NSMutableArray *selectedAssets;
+@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
+
+
 @end
 
 @implementation LCImagePickerController
@@ -138,7 +142,13 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 
 
 - (void)insertObject:(id)object inSelectedAssetsAtIndex:(NSUInteger)index{
-    [self.selectedAssets insertObject:object atIndex:index];
+    if (self.allowsMultipleSelection) {
+        [self.selectedAssets insertObject:object atIndex:index];
+    }
+    else{
+        [self.selectedAssets removeAllObjects];
+        [self.selectedAssets insertObject:object atIndex:0];
+    }
 }
 
 - (void)removeObjectFromSelectedAssetsAtIndex:(NSUInteger)index{

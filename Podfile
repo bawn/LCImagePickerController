@@ -4,3 +4,4 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 pod 'Masonry'
 pod 'RSKImageCropper'
+pod 'MBProgressHUD'

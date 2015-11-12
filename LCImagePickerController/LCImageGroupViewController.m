@@ -90,6 +90,12 @@ static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
         // 失败处理
     }];
     
+    if (self.imagePicker.defaultGroupType) {
+        if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(imagePickerWillShow:)]) {
+            [self.imagePicker.delegate imagePickerWillShow:self.imagePicker];
+        }
+    }
+    
     ALAssetsLibraryGroupsEnumerationResultsBlock resultsBlock = ^(ALAssetsGroup *group, BOOL *stop){
         if (group) {
             // 只包含图片

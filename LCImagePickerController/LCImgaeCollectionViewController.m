@@ -18,10 +18,12 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 @interface LCImgaeCollectionViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, weak) LCImagePickerController *imagePicker;
-@property (nonatomic, assign) BOOL didLayoutSubviews;
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) IBOutlet UICollectionViewFlowLayout *flowLayout;
+@property (nonatomic, assign) BOOL didLayoutSubviews;
+@property (nonatomic, assign) BOOL didImagePickerShow;
 @property (nonatomic, strong) NSMutableArray *assets;
+
 
 
 @end
@@ -33,11 +35,6 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
     [self initUI];
     [self setupAssets];
     [self addNotificationObserver];
-}
-
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self scrollToBottomIfNeeded];
 }
 
 // 滚动到底部
@@ -86,7 +83,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 - (void)initUI{
     self.extendedLayoutIncludesOpaqueBars = YES;
-    self.collectionView.allowsMultipleSelection = YES;
+    self.collectionView.allowsMultipleSelection = self.imagePicker.allowsMultipleSelection;
     self.flowLayout.minimumInteritemSpacing = 0;
     self.flowLayout.minimumLineSpacing = 1;
     CGFloat size = ([UIScreen mainScreen].bounds.size.width - 3.0f)/4;
@@ -111,6 +108,12 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
             [self.assets addObject:result];
         }
     }];
+    if (self.imagePicker.defaultGroupType && !self.didImagePickerShow) {
+        if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(imagePickerDidShow:)]) {
+            [self.imagePicker.delegate imagePickerDidShow:self.imagePicker];
+        }
+        self.didImagePickerShow = YES;
+    }
 }
 
 
@@ -190,7 +193,6 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF == %@", URL];
     NSArray *matchedGroups = [URLs.allObjects filteredArrayUsingPredicate:predicate];
     
-    // Reload assets if current assets group is updated
     if (matchedGroups.count > 0)
         [self performSelectorOnMainThread:@selector(reloadAssets) withObject:nil waitUntilDone:NO];
 }
@@ -213,15 +215,18 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
     ALAsset *asset = (ALAsset *)notification.object;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.assets indexOfObject:asset] inSection:0];
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-    if (self.imagePicker.showsNumberOfSelectedImages) {
+    if (self.imagePicker.allowsMultipleSelection) {
         [self updateSelectionOrderLabels];
     }
     else{
-        if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(singleSelectVCPushForImagePicker:selectAsset:)]){
-            UIViewController *vc = [self.imagePicker.delegate singleSelectVCPushForImagePicker:self.imagePicker selectAsset:asset];
-            if ([vc respondsToSelector:@selector(setDelegate:)]) {
-                [vc setValue:self.imagePicker.delegate forKey:@"delegate"];
-            }
+        if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(viewControllerForImagePickerSelected:selectAsset:)]){
+            UIViewController *vc = [self.imagePicker.delegate viewControllerForImagePickerSelected:self.imagePicker selectAsset:asset];
+//            if ([vc respondsToSelector:@selector(setDelegate:)]) {
+//                [vc setValue:self.imagePicker.delegate forKey:@"delegate"];
+//            }
+//            if ([vc respondsToSelector:@selector(setDataSource:)]) {
+//                [vc setValue:self.imagePicker.delegate forKey:@"dataSource"];
+//            }
             [self.navigationController pushViewController:vc animated:YES];
         }
         else{
@@ -245,6 +250,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
     [self.assets removeAllObjects];
     self.assets = nil;
     [self setupAssets];
+    [self.collectionView reloadData];
 }
 
 
@@ -278,7 +284,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     LCImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kImageCollectionCellIdentifier forIndexPath:indexPath];
-    cell.showsSelectionIndex = self.imagePicker.showsNumberOfSelectedImages;
+    cell.showsSelectionIndex = self.imagePicker.allowsMultipleSelection;
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     if ([self.imagePicker.selectedAssets containsObject:asset]){
         cell.selected = YES;
@@ -347,8 +353,5 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
         [self.imagePicker.delegate imagePickerController:self.imagePicker didUnhighlightAsset:asset];
     }
 }
-
-
-
 
 @end

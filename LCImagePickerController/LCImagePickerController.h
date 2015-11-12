@@ -50,22 +50,25 @@ extern NSString * const LCImagePickerDidDeselectAssetNotification;
 
 - (BOOL)imagePickerController:(LCImagePickerController *)picker shouldScrollToBottomForAssetCollection:(UICollectionView *)collectionView;
 
+- (void)imagePickerWillShow:(LCImagePickerController *)picker;
+- (void)imagePickerDidShow:(LCImagePickerController *)picker;
+
 - (UIButton *)doneButtonForImagePicker:(LCImagePickerController *)picker;
 - (UIButton *)backButtonForImagePicker:(LCImagePickerController *)picker;
 - (UIButton *)cancleButtonForImagePicker:(LCImagePickerController *)picker;
 
 
-- (UIViewController *)singleSelectVCPushForImagePicker:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset;
+- (UIViewController *)viewControllerForImagePickerSelected:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset;
 
 
 @end
 @interface LCImagePickerController : UIViewController
 
-@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
-@property (nonatomic, strong) NSMutableArray *selectedAssets;
+@property (nonatomic, strong, readonly) ALAssetsLibrary *assetsLibrary;
+@property (nonatomic, strong, readonly) NSMutableArray *selectedAssets;
 @property (nonatomic, assign) ALAssetsGroupType defaultGroupType;
 @property (nonatomic, assign) BOOL showsCancelButton;
-@property (nonatomic, assign) BOOL showsNumberOfSelectedImages;// 是否显示选择数量
+@property (nonatomic, assign) BOOL allowsMultipleSelection;
 @property (nonatomic, weak) id <LCImagePickerControllerDelagate> delegate;
 
 - (void)selectAsset:(ALAsset *)asset;

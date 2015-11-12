@@ -9,8 +9,9 @@
 #import "ViewController.h"
 #import "LCImagePicker.h"
 #import "RSKImageCropViewController.h"
+#import "MBProgressHUD.h"
 
-@interface ViewController ()<LCImagePickerControllerDelagate, UITableViewDataSource, UITableViewDelegate, RSKImageCropViewControllerDelegate>
+@interface ViewController ()<LCImagePickerControllerDelagate, UITableViewDataSource, UITableViewDelegate, RSKImageCropViewControllerDelegate, RSKImageCropViewControllerDataSource>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *assetArray;
@@ -45,7 +46,7 @@
 //    backgroundView.collectionBackgroundColor = [UIColor redColor];
     
     UINavigationBar *navBar = [UINavigationBar appearanceWhenContainedIn:[LCImagePickerController class], nil];
-    navBar.barStyle = UIBarStyleDefault;
+//    navBar.barStyle = UIBarStyleDefault;
     navBar.translucent = NO;
     navBar.barTintColor = [UIColor whiteColor];
     
@@ -64,28 +65,40 @@
 
 #pragma mark - LCImagePickerViewControllerDelagate Method
 
-- (UIButton *)hqDoneButtonForImagePicker:(LCImagePickerController *)picker{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(0, 0, 52, 25);
-    button.layer.cornerRadius = 4.0f;
-    button.layer.borderColor = [UIColor blackColor].CGColor;
-    button.layer.borderWidth = 1.0f;
-    button.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [button setTitle:@"完成" forState:UIControlStateNormal];
-    button.backgroundColor = [UIColor yellowColor];
-    return button;
-}
+//- (UIButton *)hqDoneButtonForImagePicker:(LCImagePickerController *)picker{
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    button.frame = CGRectMake(0, 0, 52, 25);
+//    button.layer.cornerRadius = 4.0f;
+//    button.layer.borderColor = [UIColor blackColor].CGColor;
+//    button.layer.borderWidth = 1.0f;
+//    button.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+//    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [button setTitle:@"完成" forState:UIControlStateNormal];
+//    button.backgroundColor = [UIColor yellowColor];
+//    return button;
+//}
 
-- (UIViewController *)singleSelectVCPushForImagePicker:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset{
+- (UIViewController *)viewControllerForImagePickerSelected:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset{
     UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage scale:1.0f orientation:UIImageOrientationUp];
     RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:image];
+    imageCropVC.cropMode = RSKImageCropModeCustom;
     imageCropVC.delegate = self;
+    imageCropVC.dataSource = self;
+    imageCropVC.avoidEmptySpaceAroundImage = YES;
     return imageCropVC;
 }
 
 
 - (UIButton *)backButtonForImagePicker:(LCImagePickerController *)picker{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *backImage = [UIImage imageNamed:@"btn_back"];
+    [button setImage:backImage forState:UIControlStateNormal];
+    button.frame = CGRectMake(0, 0, backImage.size.width, backImage.size.height);
+    return button;
+}
+
+
+- (UIButton *)cancleButtonForImagePicker:(LCImagePickerController *)picker{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *backImage = [UIImage imageNamed:@"btn_back"];
     [button setImage:backImage forState:UIControlStateNormal];
@@ -112,6 +125,16 @@
     return YES;
 }
 
+- (void)imagePickerWillShow:(LCImagePickerController *)picker{
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithWindow:[UIApplication sharedApplication].keyWindow];
+    [self.view.window addSubview:HUD];
+    [HUD show:NO];
+}
+
+- (void)imagePickerDidShow:(LCImagePickerController *)picker{
+    [MBProgressHUD hideHUDForView:self.view.window animated:NO];
+}
+
 #pragma mark - UITableView Method
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -132,37 +155,41 @@
 }
 
 
-- (void)imageCropViewControllerDidCancelCrop:(RSKImageCropViewController *)controller
-{
+#pragma mark - RSKImageCropViewControllerDelegate Method
+
+- (void)imageCropViewControllerDidCancelCrop:(RSKImageCropViewController *)controller{
+    
     [controller.navigationController popViewControllerAnimated:YES];
 }
 
-// The original image has been cropped.
+
 - (void)imageCropViewController:(RSKImageCropViewController *)controller
                    didCropImage:(UIImage *)croppedImage
                   usingCropRect:(CGRect)cropRect
 {
-//    self.imageView.image = croppedImage;
-//    [controller.navigationController popToRootViewControllerAnimated:YES];
+    
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
-// The original image has been cropped. Additionally provides a rotation angle used to produce image.
-//- (UIBezierPath *)imageCropViewControllerCustomMaskPath:(RSKImageCropViewController *)controller
-//{
-//    CGRect rect = controller.maskRect;
-//    CGPoint point1 = CGPointMake(CGRectGetMinX(rect), CGRectGetMaxY(rect));
-//    CGPoint point2 = CGPointMake(CGRectGetMaxX(rect), CGRectGetMaxY(rect));
-//    CGPoint point3 = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));
-//    
-//    UIBezierPath *triangle = [UIBezierPath bezierPath];
-//    [triangle moveToPoint:point1];
-//    [triangle addLineToPoint:point2];
-//    [triangle addLineToPoint:point3];
-//    [triangle closePath];
-//    
-//    return triangle;
-//}
+- (CGRect)imageCropViewControllerCustomMaskRect:(RSKImageCropViewController *)controller
+{
+    //    CGSize maskSize;
+    CGRect maskRect = CGRectMake(0,
+                                 200,
+                                 self.view.frame.size.width,
+                                 self.view.frame.size.width);
+    
+    return maskRect;
+}
+
+
+- (UIBezierPath *)imageCropViewControllerCustomMaskPath:(RSKImageCropViewController *)controller
+{
+    CGRect rect = controller.maskRect;
+    UIBezierPath *triangle = [UIBezierPath bezierPathWithRect:rect];
+    
+    return triangle;
+}
 
 
 @end
