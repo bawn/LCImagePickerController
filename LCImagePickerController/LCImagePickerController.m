@@ -46,6 +46,7 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 }
 
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [self checkAuthorizationStatus];

@@ -82,6 +82,7 @@
     UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage scale:1.0f orientation:UIImageOrientationUp];
     RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:image];
     imageCropVC.cropMode = RSKImageCropModeCustom;
+    imageCropVC.maskLayerStrokeColor = [UIColor whiteColor];
     imageCropVC.delegate = self;
     imageCropVC.dataSource = self;
     imageCropVC.avoidEmptySpaceAroundImage = YES;
@@ -173,7 +174,7 @@
 
 - (CGRect)imageCropViewControllerCustomMaskRect:(RSKImageCropViewController *)controller
 {
-    //    CGSize maskSize;
+    
     CGRect maskRect = CGRectMake(0,
                                  200,
                                  self.view.frame.size.width,

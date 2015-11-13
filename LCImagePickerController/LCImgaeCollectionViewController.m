@@ -78,6 +78,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 - (void)dealloc{
     [self removeNotificationObserver];
+
 }
 
 
@@ -170,6 +171,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
     [center removeObserver:self name:LCImagePickerDidSelectAssetNotification object:nil];
     [center removeObserver:self name:LCImagePickerDidDeselectAssetNotification object:nil];
 }
+
 
 #pragma mark - Assets Library Changed
 
