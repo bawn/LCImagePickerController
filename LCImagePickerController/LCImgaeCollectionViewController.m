@@ -223,12 +223,6 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
     else{
         if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(viewControllerForImagePickerSelected:selectAsset:)]){
             UIViewController *vc = [self.imagePicker.delegate viewControllerForImagePickerSelected:self.imagePicker selectAsset:asset];
-//            if ([vc respondsToSelector:@selector(setDelegate:)]) {
-//                [vc setValue:self.imagePicker.delegate forKey:@"delegate"];
-//            }
-//            if ([vc respondsToSelector:@selector(setDataSource:)]) {
-//                [vc setValue:self.imagePicker.delegate forKey:@"dataSource"];
-//            }
             [self.navigationController pushViewController:vc animated:YES];
         }
         else{

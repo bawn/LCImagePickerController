@@ -46,13 +46,14 @@
 //    backgroundView.collectionBackgroundColor = [UIColor redColor];
     
     UINavigationBar *navBar = [UINavigationBar appearanceWhenContainedIn:[LCImagePickerController class], nil];
-//    navBar.barStyle = UIBarStyleDefault;
     navBar.translucent = NO;
+    navBar.barStyle = UIBarStyleBlack;
     navBar.barTintColor = [UIColor whiteColor];
+    
     
     LCImagePickerController *vc = [[LCImagePickerController alloc] init];
     vc.delegate = self;
-//    vc.selectedAssets = [NSMutableArray arrayWithArray:_assetArray];;
+//    vc.selectedAssets = [NSMutableArray arrayWithArray:_assetArray];
     vc.defaultGroupType = ALAssetsGroupSavedPhotos;
     [self presentViewController:vc animated:YES completion:NULL];
     
@@ -65,27 +66,16 @@
 
 #pragma mark - LCImagePickerViewControllerDelagate Method
 
-//- (UIButton *)hqDoneButtonForImagePicker:(LCImagePickerController *)picker{
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//    button.frame = CGRectMake(0, 0, 52, 25);
-//    button.layer.cornerRadius = 4.0f;
-//    button.layer.borderColor = [UIColor blackColor].CGColor;
-//    button.layer.borderWidth = 1.0f;
-//    button.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-//    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [button setTitle:@"完成" forState:UIControlStateNormal];
-//    button.backgroundColor = [UIColor yellowColor];
-//    return button;
-//}
+
 
 - (UIViewController *)viewControllerForImagePickerSelected:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset{
     UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage scale:1.0f orientation:UIImageOrientationUp];
     RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:image];
     imageCropVC.cropMode = RSKImageCropModeCustom;
+    imageCropVC.avoidEmptySpaceAroundImage = YES;
     imageCropVC.maskLayerStrokeColor = [UIColor whiteColor];
     imageCropVC.delegate = self;
     imageCropVC.dataSource = self;
-    imageCropVC.avoidEmptySpaceAroundImage = YES;
     return imageCropVC;
 }
 
@@ -127,13 +117,13 @@
 }
 
 - (void)imagePickerWillShow:(LCImagePickerController *)picker{
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithWindow:[UIApplication sharedApplication].keyWindow];
-    [self.view.window addSubview:HUD];
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:picker.view];
+    [picker.view addSubview:HUD];
     [HUD show:NO];
 }
 
 - (void)imagePickerDidShow:(LCImagePickerController *)picker{
-    [MBProgressHUD hideHUDForView:self.view.window animated:NO];
+    [MBProgressHUD hideHUDForView:picker.view animated:NO];
 }
 
 #pragma mark - UITableView Method
@@ -172,24 +162,16 @@
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (CGRect)imageCropViewControllerCustomMaskRect:(RSKImageCropViewController *)controller
-{
-    
-    CGRect maskRect = CGRectMake(0,
-                                 200,
-                                 self.view.frame.size.width,
-                                 self.view.frame.size.width);
+- (CGRect)imageCropViewControllerCustomMaskRect:(RSKImageCropViewController *)controller{
+    CGFloat originY = (controller.view.frame.size.height - controller.view.frame.size.width) *0.5f;
+    CGRect maskRect = (CGRect){0, originY, controller.view.frame.size.width, controller.view.frame.size.width};
     
     return maskRect;
 }
 
 
-- (UIBezierPath *)imageCropViewControllerCustomMaskPath:(RSKImageCropViewController *)controller
-{
-    CGRect rect = controller.maskRect;
-    UIBezierPath *triangle = [UIBezierPath bezierPathWithRect:rect];
-    
-    return triangle;
+- (UIBezierPath *)imageCropViewControllerCustomMaskPath:(RSKImageCropViewController *)controller{
+    return [UIBezierPath bezierPathWithRect:controller.maskRect];
 }
 
 

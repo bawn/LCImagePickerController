@@ -90,7 +90,7 @@ static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
         // 失败处理
     }];
     
-    if (self.imagePicker.defaultGroupType) {
+    if (self.imagePicker.defaultGroupType && [ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) {
         if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(imagePickerWillShow:)]) {
             [self.imagePicker.delegate imagePickerWillShow:self.imagePicker];
         }
@@ -111,17 +111,22 @@ static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
             }
         }
     };
+    
+    ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error)
+    {
+        [self showNotAllowed];
+    };
 
     // Camera roll排在第一个
     [self.imagePicker.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos
                                              usingBlock:resultsBlock
-                                           failureBlock:NULL];
+                                           failureBlock:failureBlock];
     
     type = ALAssetsGroupAlbum | ALAssetsGroupEvent | ALAssetsGroupFaces;
     
     [self.imagePicker.assetsLibrary enumerateGroupsWithTypes:type
                                              usingBlock:resultsBlock
-                                           failureBlock:NULL];
+                                           failureBlock:failureBlock];
     
 }
 
@@ -134,6 +139,22 @@ static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
         vc.assetsGroup = group;
         self.navigationController.viewControllers = @[self, vc];
     }
+}
+
+
+#pragma mark - Not allowed / No assets
+
+- (void)showNotAllowed
+{
+    self.title = nil;
+//    self.tableView.backgroundView = [self.picker notAllowedView];
+//    [self setAccessibilityFocus];
+}
+
+- (void)showNoAssets
+{
+//    self.tableView.backgroundView = [self.picker noAssetsView];
+//    [self setAccessibilityFocus];
 }
 
 

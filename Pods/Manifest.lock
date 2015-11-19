@@ -1,7 +1,7 @@
 PODS:
   - Masonry (0.6.3)
   - MBProgressHUD (0.9.1)
-  - RSKImageCropper (1.4.0)
+  - RSKImageCropper (1.4.1)
 
 DEPENDENCIES:
   - Masonry
@@ -11,6 +11,6 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  RSKImageCropper: 0fc318615f147c9709796a771f6b407d9dfa9a01
+  RSKImageCropper: 98ae426eb4eb11b733ff87f8e2542a480f4fa8e6
 
 COCOAPODS: 0.39.0

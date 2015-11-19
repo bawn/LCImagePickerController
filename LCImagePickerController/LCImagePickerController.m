@@ -46,36 +46,42 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 }
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self checkAuthorizationStatus];
+}
+
+- (UIViewController *)childViewControllerForStatusBarStyle
+{
+    return self.childViewControllers.firstObject;
 }
 
 #pragma mark - Check authorization status
 
-- (void)checkAuthorizationStatus
-{
-    ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
-    switch (status)
-    {
-        case ALAuthorizationStatusNotDetermined:
-//            [self requestAuthorizationStatus];
-            break;
-        case ALAuthorizationStatusRestricted:
-        case ALAuthorizationStatusDenied:
-        {
-//            [self showAccessDenied];
-            break;
-        }
-        case ALAuthorizationStatusAuthorized:// 已授权访问相册
-        default:
-        {
-            
-            break;
-        }
-    }
-}
+//- (void)checkAuthorizationStatus
+//{
+//    ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
+//    switch (status)
+//    {
+//        case ALAuthorizationStatusNotDetermined:
+////            [self requestAuthorizationStatus];
+//            break;
+//        case ALAuthorizationStatusRestricted:// 未被授权访问相册，比如家长控制选项
+//        case ALAuthorizationStatusDenied:// 用户禁用访问相册
+//        {
+////            [self showAccessDenied];
+//            if (self.delegate && [self.delegate respondsToSelector:@selector(imagePickerDidShow:)]) {
+//                [self.delegate imagePickerDidShow:self];
+//            }
+//            break;
+//        }
+//        case ALAuthorizationStatusAuthorized:// 已授权访问相册
+//        default:
+//        {
+//            
+//            break;
+//        }
+//    }
+//}
 
 #pragma mark - Check assets count
 
@@ -100,7 +106,6 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
     
     nav.delegate = self;
     [nav willMoveToParentViewController:self];
-    
     
     [nav.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:nav.view];
@@ -130,6 +135,7 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
     
     return _assetsLibrary;
 }
+
 
 #pragma mark - Indexed Accessors
 
