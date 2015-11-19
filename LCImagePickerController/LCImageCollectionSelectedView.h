@@ -13,9 +13,10 @@
 @property (nonatomic, assign) BOOL showsSelectionIndex;
 @property (nonatomic, assign) NSUInteger selectionIndex;
 
-@property (nonatomic, weak) UIColor *selectedBackgroundColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, weak) UIFont *textFont UI_APPEARANCE_SELECTOR;
-@property (nonatomic, weak) UIColor *textColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, weak) UIColor *badgeColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *__nonnull selectedBackgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont *__nonnull badgeTextFont UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *__nonnull badgeTextColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *__nonnull badgeColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) CGSize badgeSize UI_APPEARANCE_SELECTOR;
 
 @end

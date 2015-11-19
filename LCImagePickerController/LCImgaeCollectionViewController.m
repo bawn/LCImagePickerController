@@ -90,6 +90,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
     CGFloat size = ([UIScreen mainScreen].bounds.size.width - 3.0f)/4;
     self.flowLayout.itemSize = CGSizeMake(size, size);
     self.flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    // 设置背景色
     self.collectionView.backgroundColor = [LCImageCollectionBackgroundView appearance].collectionBackgroundColor;
     [self setupButtons];
 }

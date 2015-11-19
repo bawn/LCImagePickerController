@@ -38,9 +38,10 @@
 
     LCImageCollectionSelectedView *selectedView = [LCImageCollectionSelectedView appearance];
     selectedView.selectedBackgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.65];
-    selectedView.textFont = [UIFont systemFontOfSize:13.0f];
-    selectedView.textColor = [UIColor blackColor];
+    selectedView.badgeTextFont = [UIFont systemFontOfSize:13.0f];
+    selectedView.badgeTextColor = [UIColor blackColor];
     selectedView.badgeColor = [UIColor colorWithRed:255.0f/255.0f green:226.0f/255.0 blue:0.0f alpha:1.0f];
+    selectedView.badgeSize = CGSizeMake(26, 26);
     
 //    LCImageCollectionBackgroundView *backgroundView = [LCImageCollectionBackgroundView appearance];
 //    backgroundView.collectionBackgroundColor = [UIColor redColor];
@@ -53,8 +54,9 @@
     
     LCImagePickerController *vc = [[LCImagePickerController alloc] init];
     vc.delegate = self;
-//    vc.selectedAssets = [NSMutableArray arrayWithArray:_assetArray];
+    vc.selectedAssets = [NSMutableArray arrayWithArray:_assetArray];
     vc.defaultGroupType = ALAssetsGroupSavedPhotos;
+    vc.allowsMultipleSelection = YES;
     [self presentViewController:vc animated:YES completion:NULL];
     
 }
@@ -68,17 +70,17 @@
 
 
 
-- (UIViewController *)viewControllerForImagePickerSelected:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset{
-    UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage scale:1.0f orientation:UIImageOrientationUp];
-    RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:image];
-    imageCropVC.cropMode = RSKImageCropModeCustom;
-    imageCropVC.avoidEmptySpaceAroundImage = YES;
-    imageCropVC.maskLayerStrokeColor = [UIColor whiteColor];
-    imageCropVC.delegate = self;
-    imageCropVC.dataSource = self;
-    return imageCropVC;
-}
-
+//- (UIViewController *)viewControllerForImagePickerSelected:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset{
+//    UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage scale:1.0f orientation:UIImageOrientationUp];
+//    RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:image];
+//    imageCropVC.cropMode = RSKImageCropModeCustom;
+//    imageCropVC.avoidEmptySpaceAroundImage = YES;
+//    imageCropVC.maskLayerStrokeColor = [UIColor whiteColor];
+//    imageCropVC.delegate = self;
+//    imageCropVC.dataSource = self;
+//    return imageCropVC;
+//}
+//
 
 - (UIButton *)backButtonForImagePicker:(LCImagePickerController *)picker{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -10,6 +10,6 @@
 
 @interface LCImageCollectionBackgroundView : UIView
 
-@property (nonatomic, weak) UIColor *collectionBackgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *__nonnull collectionBackgroundColor UI_APPEARANCE_SELECTOR;
 
 @end

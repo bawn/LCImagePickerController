@@ -17,7 +17,7 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 
 @interface LCImagePickerController ()<UINavigationControllerDelegate>
 
-@property (nonatomic, strong) NSMutableArray *selectedAssets;
+
 @property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 
 

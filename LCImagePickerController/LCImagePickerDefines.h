@@ -19,5 +19,6 @@ static CGFloat const LCImageGroupCellHeight = 96.0f;
 #define LCImageCollectionSelectedViewFont         [UIFont preferredFontForTextStyle:UIFontTextStyleBody]
 #define LCImageCollectionSelectedTextColor        [UIColor blackColor]
 #define LCImageCollectionBackgroundColor          [UIColor blackColor]
+#define LCImageCollectionSelectedBadgeSize        CGSizeMake(LCImageCollectionIndexLabelSize, LCImageCollectionIndexLabelSize)
 
 #endif /* LCImagePickerDefines_h */

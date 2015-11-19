@@ -38,19 +38,28 @@
     self.backgroundColor = color;
 }
 
-- (void)setTextColor:(UIColor *)textColor{
-    UIColor *color = textColor ? : LCImageCollectionSelectedTextColor;
+
+- (void)setBadgeTextColor:(UIColor *)badgeTextColor{
+    UIColor *color = badgeTextColor ? : LCImageCollectionSelectedTextColor;
     self.selectionIndexLabel.textColor = color;
 }
 
-- (void)setTextFont:(UIFont *)textFont{
-    UIFont *font = textFont ? : LCImageCollectionSelectedViewFont;
+- (void)setBadgeTextFont:(UIFont *)badgeTextFont{
+    UIFont *font = badgeTextFont ? : LCImageCollectionSelectedViewFont;
     self.selectionIndexLabel.font = font;
 }
 
 - (void)setBadgeColor:(UIColor *)badgeColor{
     UIColor *color = badgeColor ? : self.tintColor;
     self.selectionIndexLabel.backgroundColor = color;
+}
+
+- (void)setBadgeSize:(CGSize)badgeSize{
+    
+    CGSize size = CGSizeEqualToSize(badgeSize, CGSizeZero) ? LCImageCollectionSelectedBadgeSize : badgeSize;
+    [self.selectionIndexLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(size);
+    }];
 }
 
 - (void)setShowsSelectionIndex:(BOOL)showsSelectionIndex{
@@ -81,8 +90,7 @@
     [self.selectionIndexLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.trailing.mas_equalTo(-LCImageCollectionIndexLabelSpace);
         make.top.mas_equalTo(LCImageCollectionIndexLabelSpace);
-        make.height.mas_equalTo(LCImageCollectionIndexLabelSize);
-        make.width.mas_equalTo(LCImageCollectionIndexLabelSize);
+        make.size.mas_equalTo(LCImageCollectionSelectedBadgeSize);
     }];
 }
 

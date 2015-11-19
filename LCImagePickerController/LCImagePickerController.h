@@ -65,7 +65,7 @@ extern NSString * const LCImagePickerDidDeselectAssetNotification;
 @interface LCImagePickerController : UIViewController
 
 @property (nonatomic, strong, readonly) ALAssetsLibrary *assetsLibrary;
-@property (nonatomic, strong, readonly) NSMutableArray *selectedAssets;
+@property (nonatomic, strong) NSMutableArray *selectedAssets;
 @property (nonatomic, assign) ALAssetsGroupType defaultGroupType;
 @property (nonatomic, assign) BOOL showsCancelButton;
 @property (nonatomic, assign) BOOL allowsMultipleSelection;
