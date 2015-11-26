@@ -188,7 +188,6 @@
                                                         </imageView>
                                                     </subviews>
                                                     <animations/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="V94-is-hBc" secondAttribute="trailing" id="OJ4-7d-9I7"/>
                                                         <constraint firstItem="V94-is-hBc" firstAttribute="top" secondItem="Cvj-J5-whe" secondAttribute="top" id="dGd-Hs-fdE"/>

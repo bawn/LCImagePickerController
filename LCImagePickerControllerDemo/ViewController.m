@@ -36,10 +36,10 @@
 - (void)showPickerController{
     
 
-//    LCImageCollectionSelectedView *selectedView = [LCImageCollectionSelectedView appearance];
-//    selectedView.camearBackgroundColor = [UIColor blackColor];
-//    selectedView.camearImage = [UIImage imageNamed:@"cameraIconTakepicDefault"]; 
-//    
+    LCImageCollectionSelectedView *selectedView = [LCImageCollectionSelectedView appearance];
+    selectedView.camearBackgroundColor = [UIColor blackColor];
+    selectedView.camearImage = [UIImage imageNamed:@"cameraIconTakepicDefault"]; 
+//
 //    selectedView.selectedBackgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.65];
 //    selectedView.badgeTextFont = [UIFont systemFontOfSize:13.0f];
 //    selectedView.badgeTextColor = [UIColor blackColor];

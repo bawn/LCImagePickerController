@@ -26,6 +26,6 @@ static CGFloat const LCImagePickerAccessDeniedLabelSpace = 3.0f;
 #define LCImageCollectionSelectedBadgeSize        CGSizeMake(LCImageCollectionIndexLabelSize, LCImageCollectionIndexLabelSize)
 
 #define LCImagePickerAccessDeniedTitleColor       [UIColor colorWithRed:130.0f/255.0f green:135.0f/255.0f blue:148.0f/255.0f alpha:1.0f]
-#define LCImagePickerAccessDeniedSubColor       [UIColor colorWithRed:129.0f/255.0f green:136.0f/255.0f blue:148.0f/255.0f alpha:1.0f]
+#define LCImagePickerAccessDeniedSubColor         [UIColor colorWithRed:129.0f/255.0f green:136.0f/255.0f blue:148.0f/255.0f alpha:1.0f]
 
 #endif /* LCImagePickerDefines_h */
