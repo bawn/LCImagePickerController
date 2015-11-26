@@ -31,14 +31,12 @@ static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupViews];
-    [self setupGroups];
     [self setupButtons];
-
+    [self setupGroups];
 }
 
 - (void)setupViews{
     self.tableView.rowHeight = LCImageGroupCellHeight;
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,7 +98,11 @@ static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
         if (group) {
             // 只包含图片
             [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-            [self.assetsGroups addObject:group];
+            NSInteger count = (group.numberOfAssets) ? group.numberOfAssets : 0;
+            
+            if (self.imagePicker.showsEmptyAlbums || count > 0){
+                [self.assetsGroups addObject:group];
+            }
             if (--numberOfGroup == 0) {
                 [self.tableView reloadData];
                 [self.assetsGroups enumerateObjectsUsingBlock:^(ALAssetsGroup * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

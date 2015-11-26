@@ -36,20 +36,24 @@
 - (void)showPickerController{
     
 
-    LCImageCollectionSelectedView *selectedView = [LCImageCollectionSelectedView appearance];
-    selectedView.selectedBackgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.65];
-    selectedView.badgeTextFont = [UIFont systemFontOfSize:13.0f];
-    selectedView.badgeTextColor = [UIColor blackColor];
-    selectedView.badgeColor = [UIColor colorWithRed:255.0f/255.0f green:226.0f/255.0 blue:0.0f alpha:1.0f];
-    selectedView.badgeSize = CGSizeMake(26, 26);
-    
+//    LCImageCollectionSelectedView *selectedView = [LCImageCollectionSelectedView appearance];
+//    selectedView.camearBackgroundColor = [UIColor blackColor];
+//    selectedView.camearImage = [UIImage imageNamed:@"cameraIconTakepicDefault"]; 
+//    
+//    selectedView.selectedBackgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.65];
+//    selectedView.badgeTextFont = [UIFont systemFontOfSize:13.0f];
+//    selectedView.badgeTextColor = [UIColor blackColor];
+//    selectedView.badgeColor = [UIColor colorWithRed:255.0f/255.0f green:226.0f/255.0 blue:0.0f alpha:1.0f];
+//    selectedView.badgeSize = CGSizeMake(26, 26);
+//    
 //    LCImageCollectionBackgroundView *backgroundView = [LCImageCollectionBackgroundView appearance];
-//    backgroundView.collectionBackgroundColor = [UIColor redColor];
-    
-    UINavigationBar *navBar = [UINavigationBar appearanceWhenContainedIn:[LCImagePickerController class], nil];
-    navBar.translucent = NO;
-    navBar.barStyle = UIBarStyleBlack;
-    navBar.barTintColor = [UIColor whiteColor];
+//    backgroundView.collectionBackgroundColor = [UIColor blackColor];
+//    
+//    UINavigationBar *navBar = [UINavigationBar appearanceWhenContainedIn:[LCImagePickerController class], nil];
+//    navBar.translucent = NO;
+//    navBar.barStyle = UIBarStyleBlack;
+//    navBar.barTintColor = [UIColor blackColor];
+//    navBar.tintColor = [UIColor blackColor];
     
     
     LCImagePickerController *vc = [[LCImagePickerController alloc] init];
@@ -57,6 +61,7 @@
     vc.selectedAssets = [NSMutableArray arrayWithArray:_assetArray];
     vc.defaultGroupType = ALAssetsGroupSavedPhotos;
     vc.allowsMultipleSelection = YES;
+    vc.showCameraCell = YES;
     [self presentViewController:vc animated:YES completion:NULL];
     
 }
@@ -70,7 +75,7 @@
 
 
 
-//- (UIViewController *)viewControllerForImagePickerSelected:(LCImagePickerController *)picker selectAsset:(ALAsset *)asset{
+- (BOOL)collectionPickerController:(LCImgaeCollectionViewController *)collectionViewController didSelectItemAtIndexPath:(NSIndexPath *)indexPath asset:(ALAsset *)asset{
 //    UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage scale:1.0f orientation:UIImageOrientationUp];
 //    RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:image];
 //    imageCropVC.cropMode = RSKImageCropModeCustom;
@@ -78,9 +83,17 @@
 //    imageCropVC.maskLayerStrokeColor = [UIColor whiteColor];
 //    imageCropVC.delegate = self;
 //    imageCropVC.dataSource = self;
-//    return imageCropVC;
-//}
-//
+//    [collectionViewController.navigationController pushViewController:imageCropVC animated:YES];
+    
+    if (indexPath.row == 0) {
+        UIViewController *vc = [[UIViewController alloc] init];
+        vc.view.backgroundColor = [UIColor whiteColor];
+        [collectionViewController presentViewController:vc animated:YES completion:NULL];
+        return YES;
+    }
+    return NO;
+}
+
 
 - (UIButton *)backButtonForImagePicker:(LCImagePickerController *)picker{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -90,15 +103,13 @@
     return button;
 }
 
-
 - (UIButton *)cancleButtonForImagePicker:(LCImagePickerController *)picker{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *backImage = [UIImage imageNamed:@"btn_back"];
+    UIImage *backImage = [UIImage imageNamed:@"navIconDissmisDefault"];
     [button setImage:backImage forState:UIControlStateNormal];
     button.frame = CGRectMake(0, 0, backImage.size.width, backImage.size.height);
     return button;
 }
-
 
 - (void)imagePickerController:(LCImagePickerController *)picker didFinishPickingAssets:(NSArray *)assets{
     [picker dismissViewControllerAnimated:YES completion:NULL];
@@ -106,8 +117,6 @@
     [self.assetArray addObjectsFromArray:assets];
     [self.tableView reloadData];
 }
-
-
 
 // 限制选择数量
 

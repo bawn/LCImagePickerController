@@ -20,6 +20,20 @@
 
 @implementation LCImageCollectionViewCell
 
+- (void)awakeFromNib{
+    [super awakeFromNib];
+}
+
+//- (void)setHighlighted:(BOOL)highlighted{
+//    [super setHighlighted:highlighted];
+//    if (highlighted) {
+//        self.selectedView.selectedBackgroundColor = [UIColor grayColor];
+//    }
+//    else{
+//        self.selectedView.selectedBackgroundColor = [UIColor clearColor];
+//    }
+//}
+
 
 - (void)setSelected:(BOOL)selected{
     [super setSelected:selected];

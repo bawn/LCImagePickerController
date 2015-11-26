@@ -10,6 +10,7 @@
 #define LCImagePicker_h
 
 #import "LCImagePickerController.h"
+#import "LCImgaeCollectionViewController.h"
 #import "LCImageCollectionSelectedView.h"
 #import "LCImageCollectionBackgroundView.h"
 

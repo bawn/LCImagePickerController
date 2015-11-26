@@ -18,5 +18,7 @@
 @property (nonatomic, strong) UIColor *__nonnull badgeTextColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *__nonnull badgeColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, assign) CGSize badgeSize UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIImage *__nonnull camearImage UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *__nonnull camearBackgroundColor UI_APPEARANCE_SELECTOR;
 
 @end

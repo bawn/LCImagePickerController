@@ -1,16 +1,19 @@
 PODS:
   - Masonry (0.6.3)
   - MBProgressHUD (0.9.1)
+  - Reveal-iOS-SDK (1.6.2)
   - RSKImageCropper (1.4.1)
 
 DEPENDENCIES:
   - Masonry
   - MBProgressHUD
+  - Reveal-iOS-SDK
   - RSKImageCropper
 
 SPEC CHECKSUMS:
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   RSKImageCropper: 98ae426eb4eb11b733ff87f8e2542a480f4fa8e6
 
 COCOAPODS: 0.39.0

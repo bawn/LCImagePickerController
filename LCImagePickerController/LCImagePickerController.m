@@ -9,7 +9,9 @@
 #import "LCImagePickerController.h"
 #import "LCImageGroupViewController.h"
 #import "LCImagePickerDefines.h"
+#import "LCImagePickerAccessDeniedView.h"
 #import "NSBundle+LCImagePickerController.h"
+#import "Masonry.h"
 
 NSString * const LCImagePickerSelectedAssetsDidChangeNotification = @"LCImagePickerSelectedAssetsDidChangeNotification";
 NSString * const LCImagePickerDidSelectAssetNotification = @"LCImagePickerDidSelectAssetNotification";
@@ -31,7 +33,6 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
     if (self) {
         _selectedAssets = [NSMutableArray array];
         _showsCancelButton = YES;
-        [self setupNavigationController];
     }
     return self;
 }
@@ -48,6 +49,7 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self checkAuthorizationStatus];
 }
 
 - (UIViewController *)childViewControllerForStatusBarStyle
@@ -57,33 +59,94 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 
 #pragma mark - Check authorization status
 
-//- (void)checkAuthorizationStatus
-//{
-//    ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
-//    switch (status)
-//    {
-//        case ALAuthorizationStatusNotDetermined:
-////            [self requestAuthorizationStatus];
-//            break;
-//        case ALAuthorizationStatusRestricted:// 未被授权访问相册，比如家长控制选项
-//        case ALAuthorizationStatusDenied:// 用户禁用访问相册
-//        {
-////            [self showAccessDenied];
-//            if (self.delegate && [self.delegate respondsToSelector:@selector(imagePickerDidShow:)]) {
-//                [self.delegate imagePickerDidShow:self];
-//            }
-//            break;
-//        }
-//        case ALAuthorizationStatusAuthorized:// 已授权访问相册
-//        default:
-//        {
-//            
-//            break;
-//        }
-//    }
-//}
+- (void)checkAuthorizationStatus
+{
+    ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
+    switch (status)
+    {
+        case ALAuthorizationStatusNotDetermined:
+//            [self requestAuthorizationStatus];
+            break;
+        case ALAuthorizationStatusRestricted:// 未被授权访问相册，比如家长控制选项
+        case ALAuthorizationStatusDenied:// 用户禁用访问相册
+        {
+            [self showAccessDenied];
+            
+            break;
+        }
+        case ALAuthorizationStatusAuthorized:{// 已授权访问相册
+            [self setupNavigationController];
+        }
+    }
+}
 
-#pragma mark - Check assets count
+
+
+- (void)showAccessDenied{
+    
+    [self showAuxiliaryView:[[LCImagePickerAccessDeniedView alloc] init]];
+}
+
+- (void)removeChildViewController{
+    UIViewController *vc = self.childViewControllers.firstObject;
+    [vc.view removeFromSuperview];
+    [vc removeFromParentViewController];
+}
+
+
+- (UIViewController *)emptyViewController{
+    UIViewController *vc = [[UIViewController alloc] init];
+    vc.view.backgroundColor = [UIColor whiteColor];
+    vc.navigationItem.hidesBackButton = YES;
+    return vc;
+}
+
+
+- (void)showAuxiliaryView:(UIView *)view{
+    
+    [self removeChildViewController];
+    
+    UIViewController *vc = [self emptyViewController];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [vc.view addSubview:view];
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(0.0f);
+        make.leading.mas_equalTo(0.0f);
+        make.trailing.mas_equalTo(0.0f);
+    }];
+
+    [view setNeedsUpdateConstraints];
+    [view updateConstraintsIfNeeded];
+    
+    [self setupButtonInViewController:vc];
+    [self setupChildViewController:nav];
+}
+
+- (void)setupChildViewController:(UIViewController *)vc{
+    
+    [vc willMoveToParentViewController:self];
+    [vc.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [self.view addSubview:vc.view];
+    [self addChildViewController:vc];
+    [vc didMoveToParentViewController:self];
+}
+
+
+#pragma mark - Cancel button
+
+- (void)setupButtonInViewController:(UIViewController *)viewController{
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(cancleButtonForImagePicker:)]) {
+        UIButton *cancleButton = [self.delegate cancleButtonForImagePicker:self];
+        [cancleButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cancleButton];
+        [cancleButton addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    else{
+        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
+    }
+}
 
 
 
@@ -106,7 +169,6 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
     
     nav.delegate = self;
     [nav willMoveToParentViewController:self];
-    
     [nav.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:nav.view];
     [self addChildViewController:nav];
@@ -189,7 +251,6 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
 - (void)selectAsset:(ALAsset *)asset{
     [self insertObject:asset inSelectedAssetsAtIndex:self.countOfSelectedAssets];
     [self postDidSelectAssetNotification:asset];
-    
 }
 
 - (void)deselectAsset:(ALAsset *)asset{

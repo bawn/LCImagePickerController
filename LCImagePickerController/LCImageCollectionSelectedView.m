@@ -27,11 +27,9 @@
     return self;
 }
 
-
 - (void)awakeFromNib{
     [self initUI];
 }
-
 
 - (void)setSelectedBackgroundColor:(UIColor *)backgroundColor{
     UIColor *color = backgroundColor ? backgroundColor : LCImageCollectionSelectedBackgroundColor;
@@ -72,7 +70,6 @@
         self.selectionIndexLabel.hidden = YES;
     }
 }
-
 
 - (void)initUI{
     // 蒙层颜色

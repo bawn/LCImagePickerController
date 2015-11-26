@@ -11,9 +11,11 @@
 #import "LCImageCollectionViewCell.h"
 #import "LCImagePickerViewController+Internal.h"
 #import "LCImageCollectionBackgroundView.h"
+#import "LCCameraCollectionViewCell.h"
 #import "Masonry.h"
 
-static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
+static NSString *const kAssetsCellIdentifier = @"assetsCell";
+static NSString *const kCameraCellIdentifier = @"cameraCell";
 
 @interface LCImgaeCollectionViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -23,8 +25,6 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 @property (nonatomic, assign) BOOL didLayoutSubviews;
 @property (nonatomic, assign) BOOL didImagePickerShow;
 @property (nonatomic, strong) NSMutableArray *assets;
-
-
 
 @end
 
@@ -78,7 +78,6 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 
 - (void)dealloc{
     [self removeNotificationObserver];
-
 }
 
 
@@ -110,6 +109,9 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
             [self.assets addObject:result];
         }
     }];
+    if (self.imagePicker.showCameraCell) {
+        [self.assets insertObject:@1 atIndex:0];
+    }
     if (self.imagePicker.defaultGroupType && !self.didImagePickerShow) {
         if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(imagePickerDidShow:)]) {
             [self.imagePicker.delegate imagePickerDidShow:self.imagePicker];
@@ -124,8 +126,8 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 - (void)scrollToBottomIfNeeded{
     BOOL shouldScrollToBottom;
     
-    if ([self.imagePicker.delegate respondsToSelector:@selector(imagePickerController:shouldScrollToBottomForAssetCollection:)]){
-        shouldScrollToBottom = [self.imagePicker.delegate imagePickerController:self.imagePicker shouldScrollToBottomForAssetCollection:self.collectionView];
+    if ([self.imagePicker.delegate respondsToSelector:@selector(imagePickerControllerShouldScrollToBottom:)]){
+        shouldScrollToBottom = [self.imagePicker.delegate imagePickerControllerShouldScrollToBottom:self.imagePicker];
     }
     else{
         shouldScrollToBottom = YES;
@@ -201,6 +203,7 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 }
 
 
+
 #pragma mark - Selected Assets Changed
 
 - (void)selectedAssetsChanged:(NSNotification *)notification{
@@ -215,22 +218,38 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 }
 
 - (void)assetsPickerDidSelectAsset:(NSNotification *)notification{
+    
     ALAsset *asset = (ALAsset *)notification.object;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.assets indexOfObject:asset] inSection:0];
-    [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-    if (self.imagePicker.allowsMultipleSelection) {
-        [self updateSelectionOrderLabels];
+//    [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+//    if (self.imagePicker.allowsMultipleSelection) {
+//        [self updateSelectionOrderLabels];
+//    }
+//    else{
+//        if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(collectionPickerController:didSelectItemAtIndexPath:asset:)]){
+//            [self.imagePicker.delegate collectionPickerController:self didSelectItemAtIndexPath:indexPath asset:asset];
+//        }
+//        else{
+//            [self.imagePicker finishPickingAssets:nil];
+//        }
+//    }
+    
+    
+    if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(collectionPickerController:didSelectItemAtIndexPath:asset:)]){
+        BOOL showOther = [self.imagePicker.delegate collectionPickerController:self didSelectItemAtIndexPath:indexPath asset:asset];
+        if (!showOther) {
+            if (self.imagePicker.allowsMultipleSelection) {
+                [self updateSelectionOrderLabels];
+            }
+            else{
+                [self.imagePicker finishPickingAssets:nil];
+            }
+        }
     }
     else{
-        if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(viewControllerForImagePickerSelected:selectAsset:)]){
-            UIViewController *vc = [self.imagePicker.delegate viewControllerForImagePickerSelected:self.imagePicker selectAsset:asset];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        else{
-            [self.imagePicker finishPickingAssets:nil];
-
-        }
+        [self.imagePicker finishPickingAssets:nil];
     }
+  
 }
 
 - (void)assetsPickerDidDeselectAsset:(NSNotification *)notification{
@@ -276,21 +295,42 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 #pragma mark - UICollectionView Method
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return _assets.count;
+    return  _assets.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    LCImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kImageCollectionCellIdentifier forIndexPath:indexPath];
-    cell.showsSelectionIndex = self.imagePicker.allowsMultipleSelection;
-    ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
-    if ([self.imagePicker.selectedAssets containsObject:asset]){
-        cell.selected = YES;
-        cell.selectionIndex = [self.imagePicker.selectedAssets indexOfObject:asset];
-        [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+   
+    if (self.imagePicker.showCameraCell) {
+        if (indexPath.row) {
+            LCImageCollectionViewCell *cell = (LCImageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kAssetsCellIdentifier forIndexPath:indexPath];
+            // 默认选择了那些cell
+            ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
+            if ([self.imagePicker.selectedAssets containsObject:asset]){
+                cell.selected = YES;
+                cell.selectionIndex = [self.imagePicker.selectedAssets indexOfObject:asset];
+                [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+            }
+            [cell configWithItem:_assets[indexPath.row]];
+            return cell;
+        }
+        else{
+            LCCameraCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCameraCellIdentifier forIndexPath:indexPath];
+            return cell;
+        }
     }
-    
-    [cell configWithItem:_assets[indexPath.row]];
-    return cell;
+    else{
+        LCImageCollectionViewCell *cell = (LCImageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kAssetsCellIdentifier forIndexPath:indexPath];
+        // 默认选择了那些cell
+        ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
+        if ([self.imagePicker.selectedAssets containsObject:asset]){
+            cell.selected = YES;
+            cell.selectionIndex = [self.imagePicker.selectedAssets indexOfObject:asset];
+            [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        }
+        [cell configWithItem:_assets[indexPath.row]];
+        return cell;
+
+    }
 }
 
 
@@ -307,47 +347,8 @@ static NSString *const kImageCollectionCellIdentifier = @"imageCollectionCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
     [self.imagePicker selectAsset:asset];
-    if ([self.imagePicker.delegate respondsToSelector:@selector(imagePickerController:didSelectAsset:)]){
-        [self.imagePicker.delegate imagePickerController:self.imagePicker didSelectAsset:asset];
-    }
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
-    ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
-    [self.imagePicker deselectAsset:asset];
-    
-    if ([self.imagePicker.delegate respondsToSelector:@selector(imagePickerController:didDeselectAsset:)]){
-        [self.imagePicker.delegate imagePickerController:self.imagePicker didDeselectAsset:asset];
-    }
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
-    
-    if ([self.imagePicker.delegate respondsToSelector:@selector(imagePickerController:shouldHighlightAsset:)]){
-        return [self.imagePicker.delegate imagePickerController:self.imagePicker shouldHighlightAsset:asset];
-    }
-    else{
-        return YES;
-    }
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
-    
-    if ([self.imagePicker.delegate respondsToSelector:@selector(imagePickerController:didHighlightAsset:)]){
-        [self.imagePicker.delegate imagePickerController:self.imagePicker didHighlightAsset:asset];
-    }
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
-    
-    if ([self.imagePicker.delegate respondsToSelector:@selector(imagePickerController:didUnhighlightAsset:)]){
-        [self.imagePicker.delegate imagePickerController:self.imagePicker didUnhighlightAsset:asset];
+    if (!self.imagePicker.allowsMultipleSelection) {
+        [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     }
 }
 
