@@ -12,6 +12,8 @@
 #import "LCImagePickerViewController+Internal.h"
 #import "LCImageCollectionBackgroundView.h"
 #import "LCCameraCollectionViewCell.h"
+#import "ALAsset+url.h"
+#import "ALAsset+date.h"
 #import "Masonry.h"
 
 static NSString *const kAssetsCellIdentifier = @"assetsCell";
@@ -109,6 +111,11 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
             [self.assets addObject:result];
         }
     }];
+    // 排序排列
+    if (self.imagePicker.descendingOrder) {
+        NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+        [self.assets sortUsingDescriptors:@[dateSort]];
+    }
     if (self.imagePicker.showCameraCell) {
         [self.assets insertObject:@1 atIndex:0];
     }
@@ -180,29 +187,34 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
 
 - (void)assetsLibraryChanged:(NSNotification *)notification{
     // 重置所有的专辑
-    if (notification.userInfo == nil)
+    if (notification.userInfo == nil){
         [self performSelectorOnMainThread:@selector(reloadAssets) withObject:nil waitUntilDone:NO];
+    }
     
     // 重置受影响的专辑
-    if (notification.userInfo.count > 0)
+    if (notification.userInfo.count > 0){
         [self reloadAssetsGroupForUserInfo:notification.userInfo];
+    }
 }
 
 
 #pragma mark - Reload Assets Group
 
 - (void)reloadAssetsGroupForUserInfo:(NSDictionary *)userInfo{
+    NSSet *updateAsstes = [userInfo objectForKey:ALAssetLibraryUpdatedAssetsKey];
+    if (updateAsstes.allObjects.count) {
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@" NOT (url IN %@ )", updateAsstes.allObjects];
+        [self.imagePicker.selectedAssets filterUsingPredicate:pred];
+    }
     NSSet *URLs = [userInfo objectForKey:ALAssetLibraryUpdatedAssetGroupsKey];
     NSURL *URL  = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyURL];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF == %@", URL];
     NSArray *matchedGroups = [URLs.allObjects filteredArrayUsingPredicate:predicate];
-    
-    if (matchedGroups.count > 0)
+    if (matchedGroups.count > 0){
         [self performSelectorOnMainThread:@selector(reloadAssets) withObject:nil waitUntilDone:NO];
+    }
 }
-
-
 
 #pragma mark - Selected Assets Changed
 
@@ -221,19 +233,6 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
     
     ALAsset *asset = (ALAsset *)notification.object;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.assets indexOfObject:asset] inSection:0];
-//    [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-//    if (self.imagePicker.allowsMultipleSelection) {
-//        [self updateSelectionOrderLabels];
-//    }
-//    else{
-//        if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(collectionPickerController:didSelectItemAtIndexPath:asset:)]){
-//            [self.imagePicker.delegate collectionPickerController:self didSelectItemAtIndexPath:indexPath asset:asset];
-//        }
-//        else{
-//            [self.imagePicker finishPickingAssets:nil];
-//        }
-//    }
-    
     
     if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(collectionPickerController:didSelectItemAtIndexPath:asset:)]){
         BOOL showOther = [self.imagePicker.delegate collectionPickerController:self didSelectItemAtIndexPath:indexPath asset:asset];
@@ -249,7 +248,6 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
     else{
         [self.imagePicker finishPickingAssets:nil];
     }
-  
 }
 
 - (void)assetsPickerDidDeselectAsset:(NSNotification *)notification{
@@ -268,7 +266,6 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
     [self setupAssets];
     [self.collectionView reloadData];
 }
-
 
 #pragma mark - Update Selection Order Labels
 
@@ -300,27 +297,8 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
    
-    if (self.imagePicker.showCameraCell) {
-        if (indexPath.row) {
-            LCImageCollectionViewCell *cell = (LCImageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kAssetsCellIdentifier forIndexPath:indexPath];
-            // 默认选择了那些cell
-            ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
-            if ([self.imagePicker.selectedAssets containsObject:asset]){
-                cell.selected = YES;
-                cell.selectionIndex = [self.imagePicker.selectedAssets indexOfObject:asset];
-                [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-            }
-            [cell configWithItem:_assets[indexPath.row]];
-            return cell;
-        }
-        else{
-            LCCameraCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCameraCellIdentifier forIndexPath:indexPath];
-            return cell;
-        }
-    }
-    else{
+    if ((self.imagePicker.showCameraCell && indexPath.row) || !self.imagePicker.showCameraCell) {
         LCImageCollectionViewCell *cell = (LCImageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kAssetsCellIdentifier forIndexPath:indexPath];
-        // 默认选择了那些cell
         ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
         if ([self.imagePicker.selectedAssets containsObject:asset]){
             cell.selected = YES;
@@ -329,10 +307,12 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
         }
         [cell configWithItem:_assets[indexPath.row]];
         return cell;
-
+    }
+    else {
+        LCCameraCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCameraCellIdentifier forIndexPath:indexPath];
+        return cell;
     }
 }
-
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
@@ -350,6 +330,11 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
     if (!self.imagePicker.allowsMultipleSelection) {
         [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
+    ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
+    [self.imagePicker deselectAsset:asset];
 }
 
 @end

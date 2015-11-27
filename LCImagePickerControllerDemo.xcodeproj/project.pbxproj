@@ -10,6 +10,8 @@
 		DC491FC969824CDB92360B47 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA93C2E17AC3652013CF1A4 /* libPods.a */; };
 		DF0B95591C06F771007C9DCC /* LCCameraCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0B95581C06F771007C9DCC /* LCCameraCollectionViewCell.m */; };
 		DF0B955F1C071269007C9DCC /* LCImagePickerAccessDeniedView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0B955E1C071269007C9DCC /* LCImagePickerAccessDeniedView.m */; };
+		DF3BA0E51C07ED6A0017AD62 /* ALAsset+date.m in Sources */ = {isa = PBXBuildFile; fileRef = DF3BA0E41C07ED6A0017AD62 /* ALAsset+date.m */; };
+		DF3BA0E81C07FC440017AD62 /* ALAsset+url.m in Sources */ = {isa = PBXBuildFile; fileRef = DF3BA0E71C07FC440017AD62 /* ALAsset+url.m */; };
 		DFA92A8E1BEC8D7A00EAC9C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92A8D1BEC8D7A00EAC9C6 /* main.m */; };
 		DFA92A911BEC8D7A00EAC9C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92A901BEC8D7A00EAC9C6 /* AppDelegate.m */; };
 		DFA92A941BEC8D7A00EAC9C6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA92A931BEC8D7A00EAC9C6 /* ViewController.m */; };
@@ -57,6 +59,10 @@
 		DF0B95581C06F771007C9DCC /* LCCameraCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCCameraCollectionViewCell.m; sourceTree = "<group>"; };
 		DF0B955D1C071269007C9DCC /* LCImagePickerAccessDeniedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCImagePickerAccessDeniedView.h; sourceTree = "<group>"; };
 		DF0B955E1C071269007C9DCC /* LCImagePickerAccessDeniedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCImagePickerAccessDeniedView.m; sourceTree = "<group>"; };
+		DF3BA0E31C07ED6A0017AD62 /* ALAsset+date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+date.h"; sourceTree = "<group>"; };
+		DF3BA0E41C07ED6A0017AD62 /* ALAsset+date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+date.m"; sourceTree = "<group>"; };
+		DF3BA0E61C07FC440017AD62 /* ALAsset+url.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+url.h"; sourceTree = "<group>"; };
+		DF3BA0E71C07FC440017AD62 /* ALAsset+url.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+url.m"; sourceTree = "<group>"; };
 		DFA92A891BEC8D7A00EAC9C6 /* LCImagePickerControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LCImagePickerControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA92A8D1BEC8D7A00EAC9C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DFA92A8F1BEC8D7A00EAC9C6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -243,6 +249,10 @@
 			children = (
 				DFA92AE61BECD39300EAC9C6 /* ALAsset+assetType.h */,
 				DFA92AE71BECD39300EAC9C6 /* ALAsset+assetType.m */,
+				DF3BA0E31C07ED6A0017AD62 /* ALAsset+date.h */,
+				DF3BA0E41C07ED6A0017AD62 /* ALAsset+date.m */,
+				DF3BA0E61C07FC440017AD62 /* ALAsset+url.h */,
+				DF3BA0E71C07FC440017AD62 /* ALAsset+url.m */,
 				DFA92AE01BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.h */,
 				DFA92AE11BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m */,
 				DFA92AC11BEC8DA400EAC9C6 /* ALAsset+isEqual.h */,
@@ -441,6 +451,7 @@
 			files = (
 				DFA92AE21BEC8F9900EAC9C6 /* NSBundle+LCImagePickerController.m in Sources */,
 				DFA92AD91BEC8DA400EAC9C6 /* LCImageGroupTableViewCell.m in Sources */,
+				DF3BA0E51C07ED6A0017AD62 /* ALAsset+date.m in Sources */,
 				DF0B955F1C071269007C9DCC /* LCImagePickerAccessDeniedView.m in Sources */,
 				DFA92AD51BEC8DA400EAC9C6 /* ALAsset+isEqual.m in Sources */,
 				DFA92A941BEC8D7A00EAC9C6 /* ViewController.m in Sources */,
@@ -453,6 +464,7 @@
 				DFA92ADC1BEC8DA400EAC9C6 /* LCImagePickerController.m in Sources */,
 				DFA92AE81BECD39300EAC9C6 /* ALAsset+assetType.m in Sources */,
 				DF0B95591C06F771007C9DCC /* LCCameraCollectionViewCell.m in Sources */,
+				DF3BA0E81C07FC440017AD62 /* ALAsset+url.m in Sources */,
 				DFA92AD81BEC8DA400EAC9C6 /* LCImageCollectionViewCell.m in Sources */,
 				DFA92ADA1BEC8DA400EAC9C6 /* LCImageGroupViewController.m in Sources */,
 			);

@@ -14,6 +14,7 @@
 #import "LCImagePickerViewController+Internal.h"
 #import "NSBundle+LCImagePickerController.h"
 
+
 static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
 
 @interface LCImageGroupViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -98,8 +99,8 @@ static NSString *const kImageGroupCellIdentifier = @"imageGroupCell";
         if (group) {
             // 只包含图片
             [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-            NSInteger count = (group.numberOfAssets) ? group.numberOfAssets : 0;
             
+            NSInteger count = group.numberOfAssets;
             if (self.imagePicker.showsEmptyAlbums || count > 0){
                 [self.assetsGroups addObject:group];
             }

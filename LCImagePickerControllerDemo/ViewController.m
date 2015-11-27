@@ -62,6 +62,7 @@
     vc.defaultGroupType = ALAssetsGroupSavedPhotos;
     vc.allowsMultipleSelection = YES;
     vc.showCameraCell = YES;
+    vc.descendingOrder = YES;
     [self presentViewController:vc animated:YES completion:NULL];
     
 }
@@ -84,7 +85,8 @@
 //    imageCropVC.delegate = self;
 //    imageCropVC.dataSource = self;
 //    [collectionViewController.navigationController pushViewController:imageCropVC animated:YES];
-    
+//    return YES;
+
     if (indexPath.row == 0) {
         UIViewController *vc = [[UIViewController alloc] init];
         vc.view.backgroundColor = [UIColor whiteColor];
@@ -125,6 +127,10 @@
         return NO;
     }
     return YES;
+}
+
+- (BOOL)imagePickerControllerShouldScrollToBottom:(LCImagePickerController *)picker{
+    return NO;
 }
 
 - (void)imagePickerWillShow:(LCImagePickerController *)picker{

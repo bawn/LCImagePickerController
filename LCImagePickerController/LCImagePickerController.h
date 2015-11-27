@@ -127,6 +127,11 @@ extern NSString * const LCImagePickerDidDeselectAssetNotification;
  */
 @property (nonatomic, assign) BOOL showsEmptyAlbums;
 
+/**
+ *  是否倒序排列照片，默认 NO
+ */
+@property (nonatomic, assign) BOOL descendingOrder;
+
 @property (nonatomic, assign) ALAssetsGroupType defaultGroupType;
 @property (nonatomic, strong, readonly) ALAssetsLibrary *assetsLibrary;
 @property (nonatomic, strong) NSMutableArray *selectedAssets;
