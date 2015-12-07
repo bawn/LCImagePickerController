@@ -95,7 +95,7 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
     self.collectionView.backgroundColor = [LCImageCollectionBackgroundView appearance].collectionBackgroundColor;
     [self setupButtons];
 }
-     
+
 
 - (void)setupAssets{
     self.title = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyName];
@@ -117,7 +117,8 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
         [self.assets sortUsingDescriptors:@[dateSort]];
     }
     if (self.imagePicker.showCameraCell) {
-        [self.assets insertObject:@1 atIndex:0];
+        ALAsset *asset = [[ALAsset alloc] init];
+        [self.assets insertObject:asset atIndex:0];
     }
     if (self.imagePicker.defaultGroupType && !self.didImagePickerShow) {
         if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(imagePickerDidShow:)]) {
@@ -201,49 +202,48 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
 #pragma mark - Reload Assets Group
 
 - (void)reloadAssetsGroupForUserInfo:(NSDictionary *)userInfo{
-    NSSet *updateAsstes = [userInfo objectForKey:ALAssetLibraryUpdatedAssetsKey];
-    if (updateAsstes.allObjects.count) {
-        NSPredicate *pred = [NSPredicate predicateWithFormat:@" NOT (url IN %@ )", updateAsstes.allObjects];
-        [self.imagePicker.selectedAssets filterUsingPredicate:pred];
-    }
-    NSSet *URLs = [userInfo objectForKey:ALAssetLibraryUpdatedAssetGroupsKey];
-    NSURL *URL  = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyURL];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF == %@", URL];
-    NSArray *matchedGroups = [URLs.allObjects filteredArrayUsingPredicate:predicate];
-    if (matchedGroups.count > 0){
-        [self performSelectorOnMainThread:@selector(reloadAssets) withObject:nil waitUntilDone:NO];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSSet *updateAsstes = [userInfo objectForKey:ALAssetLibraryUpdatedAssetsKey];
+        if (updateAsstes.allObjects.count) {
+            
+            NSSet *URLs = [userInfo objectForKey:ALAssetLibraryUpdatedAssetGroupsKey];
+            NSURL *URL  = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyURL];
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF == %@", URL];
+            NSArray *matchedGroups = [URLs.allObjects filteredArrayUsingPredicate:predicate];
+            if (matchedGroups.count > 0){
+                // 默认相机拍照图片储存后 updateAsstes 数量为 3 而且是最后三个 Asstes，删除照片的情况，updateAsstes 数量就是 3 + n
+                // 代码添加保存照片时，会接受到三次通知，其中两次的同时分别是 最后三个 Asstes 和 添加的照片的 Asstes
+                if (updateAsstes.allObjects.count != 3) {
+                    NSPredicate *pred = [NSPredicate predicateWithFormat:@"NOT (url IN %@ )", updateAsstes.allObjects];
+                    [self.imagePicker.selectedAssets filterUsingPredicate:pred];
+                }
+                [self reloadAssets];
+            }
+        }
+    });
 }
 
 #pragma mark - Selected Assets Changed
 
 - (void)selectedAssetsChanged:(NSNotification *)notification{
-//    NSArray *selectedAssets = (NSArray *)notification.object;
+    //    NSArray *selectedAssets = (NSArray *)notification.object;
     
-//    [[self.toolbarItems objectAtIndex:1] setTitle:[self.picker toolbarTitle]];
-//    
-//    [self.navigationController setToolbarHidden:(selectedAssets.count == 0) animated:YES];
+    //    [[self.toolbarItems objectAtIndex:1] setTitle:[self.picker toolbarTitle]];
+    //
+    //    [self.navigationController setToolbarHidden:(selectedAssets.count == 0) animated:YES];
     
     // Reload assets for calling de/selectAsset method programmatically
-//    [self.collectionView reloadData];
+    //    [self.collectionView reloadData];
 }
 
 - (void)assetsPickerDidSelectAsset:(NSNotification *)notification{
-    
     ALAsset *asset = (ALAsset *)notification.object;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[self.assets indexOfObject:asset] inSection:0];
-    
-    if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(collectionPickerController:didSelectItemAtIndexPath:asset:)]){
-        BOOL showOther = [self.imagePicker.delegate collectionPickerController:self didSelectItemAtIndexPath:indexPath asset:asset];
-        if (!showOther) {
-            if (self.imagePicker.allowsMultipleSelection) {
-                [self updateSelectionOrderLabels];
-            }
-            else{
-                [self.imagePicker finishPickingAssets:nil];
-            }
-        }
+    if (self.imagePicker.allowsMultipleSelection) {
+        [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        [self updateSelectionOrderLabels];
     }
     else{
         [self.imagePicker finishPickingAssets:nil];
@@ -296,7 +296,7 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-   
+    
     if ((self.imagePicker.showCameraCell && indexPath.row) || !self.imagePicker.showCameraCell) {
         LCImageCollectionViewCell *cell = (LCImageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kAssetsCellIdentifier forIndexPath:indexPath];
         ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
@@ -326,9 +326,17 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
-    [self.imagePicker selectAsset:asset];
-    if (!self.imagePicker.allowsMultipleSelection) {
-        [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(collectionPickerController:didSelectItemAtIndexPath:asset:)]){
+        BOOL showOther = [self.imagePicker.delegate collectionPickerController:self didSelectItemAtIndexPath:indexPath asset:asset];
+        if (showOther) {
+            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+        }
+        else{
+            [self.imagePicker selectAsset:asset];
+        }
+    }
+    else{
+        [self.imagePicker selectAsset:asset];
     }
 }
 

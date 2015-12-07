@@ -11,8 +11,12 @@
 @implementation ALAsset (url)
 
 - (NSString *)url{
-    return [self valueForProperty:ALAssetPropertyAssetURL];
+    if ([self isKindOfClass:[ALAsset class]]) {
+        return [self valueForProperty:ALAssetPropertyAssetURL];
+    }
+    else{
+        return @"";
+    }
 }
-
 
 @end

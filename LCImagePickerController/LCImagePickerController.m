@@ -130,6 +130,7 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
     [self.view addSubview:vc.view];
     [self addChildViewController:vc];
     [vc didMoveToParentViewController:self];
+    
 }
 
 
