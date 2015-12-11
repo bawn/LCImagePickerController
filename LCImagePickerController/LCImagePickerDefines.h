@@ -16,8 +16,8 @@ static CGFloat const LCImageGroupCellHeight = 96.0f;
 
 static NSString *const LCImagePickerAccessDeniedTitleString = @"此应用程序对您的照片或视频没有访问权。";
 static NSString *const LCImagePickerAccessDeniedSubString = @"您可以在隐私设置中启用访问权。";
-static CGFloat const LCImagePickerAccessDeniedLabelSpace = 3.0f;
-
+static CGFloat const LCImagePickerAccessDeniedLabelSpace = 5.0f;
+static CGFloat const LCImagePickerAccessDeniedLabelMargin = 16.0f;
 
 #define LCImageCollectionSelectedBackgroundColor  [[UIColor blackColor] colorWithAlphaComponent:0.7]
 #define LCImageCollectionSelectedViewFont         [UIFont preferredFontForTextStyle:UIFontTextStyleBody]

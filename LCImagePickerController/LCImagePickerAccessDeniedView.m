@@ -40,18 +40,26 @@
     self.titleLabel.text = LCImagePickerAccessDeniedTitleString;
     self.subLabel.text = LCImagePickerAccessDeniedSubString;
     
+    self.titleLabel.numberOfLines = 0.0f;
+    self.subLabel.numberOfLines = 0.0f;
+    
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.subLabel.textAlignment = NSTextAlignmentCenter;
+    
     [self addSubview:_titleLabel];
     [self addSubview:_subLabel];
 
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(0.0f);
         make.top.mas_equalTo(0.0f);
+        make.leading.mas_equalTo(LCImagePickerAccessDeniedLabelMargin);
+        make.trailing.mas_equalTo(-LCImagePickerAccessDeniedLabelMargin);
     }];
     
     [self.subLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(0.0f);
         make.bottom.mas_equalTo(0.0f);
+        make.leading.mas_equalTo(LCImagePickerAccessDeniedLabelMargin);
+        make.trailing.mas_equalTo(-LCImagePickerAccessDeniedLabelMargin);
         make.top.equalTo(self.titleLabel.mas_bottom).offset(LCImagePickerAccessDeniedLabelSpace);
     }];
 }

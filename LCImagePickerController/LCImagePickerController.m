@@ -7,6 +7,7 @@
 //
 
 #import "LCImagePickerController.h"
+#import "LCNavigationController.h"
 #import "LCImageGroupViewController.h"
 #import "LCImagePickerDefines.h"
 #import "LCImagePickerAccessDeniedView.h"
@@ -65,7 +66,7 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
     switch (status)
     {
         case ALAuthorizationStatusNotDetermined:
-//            [self requestAuthorizationStatus];
+            [self setupNavigationController];
             break;
         case ALAuthorizationStatusRestricted:// 未被授权访问相册，比如家长控制选项
         case ALAuthorizationStatusDenied:// 用户禁用访问相册
@@ -163,12 +164,8 @@ NSString * const LCImagePickerDidDeselectAssetNotification = @"LCImagePickerDidD
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LCImagePicker" bundle:[NSBundle lcAssetsPickerControllerBundle]];
     LCImageGroupViewController *vc = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([LCImageGroupViewController class])];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    LCNavigationController *nav = [[LCNavigationController alloc] initWithRootViewController:vc];
     
-    nav.interactivePopGestureRecognizer.enabled  = YES;
-    nav.interactivePopGestureRecognizer.delegate = nil;
-    
-    nav.delegate = self;
     [nav willMoveToParentViewController:self];
     [nav.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:nav.view];
