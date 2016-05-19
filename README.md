@@ -3,6 +3,7 @@
 ![License MIT](https://img.shields.io/dub/l/vibe-d.svg)
 ![Pod version](http://img.shields.io/cocoapods/v/LCImagePickerController.svg?style=flat)
 ![Platform info](http://img.shields.io/cocoapods/p/LCImagePickerController.svg?style=flat)
+[![Support](https://img.shields.io/badge/support-iOS7+-blue.svg?style=flat)](https://www.apple.com/nl/ios/)
 
 
 多选图片库
