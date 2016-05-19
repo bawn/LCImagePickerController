@@ -60,7 +60,7 @@
     vc.delegate = self;
     vc.selectedAssets = [NSMutableArray arrayWithArray:_assetArray];
     vc.defaultGroupType = ALAssetsGroupSavedPhotos;
-    vc.allowsMultipleSelection = YES;
+//    vc.allowsMultipleSelection = YES;
 //    vc.showCameraCell = YES;
     vc.descendingOrder = YES;
     [self presentViewController:vc animated:YES completion:NULL];
@@ -75,26 +75,27 @@
 #pragma mark - LCImagePickerViewControllerDelagate Method
 
 
+- (BOOL)imagePicker:(LCImagePickerController *)picker pickerController:(LCImgaeCollectionViewController *)controller didSelectItemAtIndexPath:(NSIndexPath *)indexPath asset:(ALAsset *)asset{
+    UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage scale:1.0f orientation:UIImageOrientationUp];
+    RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:image];
+    imageCropVC.cropMode = RSKImageCropModeCustom;
+    imageCropVC.avoidEmptySpaceAroundImage = YES;
+    imageCropVC.maskLayerStrokeColor = [UIColor whiteColor];
+    imageCropVC.delegate = self;
+    imageCropVC.dataSource = self;
+    [controller.navigationController pushViewController:imageCropVC animated:YES];
+    return YES;
+    
+//    if (indexPath.row == 0) {
+//        UIViewController *vc = [[UIViewController alloc] init];
+//        vc.view.backgroundColor = [UIColor whiteColor];
+//        [controller presentViewController:vc animated:YES completion:NULL];
+//        return YES;
+//    }
+//    return NO;
 
-//- (BOOL)collectionPickerController:(LCImgaeCollectionViewController *)collectionViewController didSelectItemAtIndexPath:(NSIndexPath *)indexPath asset:(ALAsset *)asset{
-//    UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage scale:1.0f orientation:UIImageOrientationUp];
-//    RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:image];
-//    imageCropVC.cropMode = RSKImageCropModeCustom;
-//    imageCropVC.avoidEmptySpaceAroundImage = YES;
-//    imageCropVC.maskLayerStrokeColor = [UIColor whiteColor];
-//    imageCropVC.delegate = self;
-//    imageCropVC.dataSource = self;
-//    [collectionViewController.navigationController pushViewController:imageCropVC animated:YES];
-//    return YES;
-//
-////    if (indexPath.row == 0) {
-////        UIViewController *vc = [[UIViewController alloc] init];
-////        vc.view.backgroundColor = [UIColor whiteColor];
-////        [collectionViewController presentViewController:vc animated:YES completion:NULL];
-////        return YES;
-////    }
-////    return NO;
-//}
+
+}
 
 - (UIButton *)doneButtonForImagePicker:(LCImagePickerController *)picker{
     UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];

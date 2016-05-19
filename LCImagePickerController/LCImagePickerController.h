@@ -98,13 +98,14 @@ extern NSString * const LCImagePickerDidDeselectAssetNotification;
 /**
  *  照片选择页面当选择cell的时候是否需要跳转到另一个页面
  *
- *  @param collectionViewController 当前的照片选择页面
- *  @param indexPath                当前indexPath
- *  @param asset                    当前asset
+ *  @param picker     相册
+ *  @param controller 当前的照片选择页面
+ *  @param indexPath  当前indexPath
+ *  @param asset      当前asset
  *
  *  @return 是否需要跳转到一个界面
  */
-- (BOOL)collectionPickerController:(LCImgaeCollectionViewController *)collectionViewController didSelectItemAtIndexPath:(NSIndexPath *)indexPath asset:(ALAsset *)asset;
+- (BOOL)imagePicker:(LCImagePickerController *)picker pickerController:(LCImgaeCollectionViewController *)controller didSelectItemAtIndexPath:(NSIndexPath *)indexPath asset:(ALAsset *)asset;
 
 
 @end

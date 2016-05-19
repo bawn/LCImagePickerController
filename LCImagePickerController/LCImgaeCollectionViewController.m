@@ -326,8 +326,8 @@ static NSString *const kCameraCellIdentifier = @"cameraCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     ALAsset *asset = [self.assets objectAtIndex:indexPath.row];
-    if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(collectionPickerController:didSelectItemAtIndexPath:asset:)]){
-        BOOL showOther = [self.imagePicker.delegate collectionPickerController:self didSelectItemAtIndexPath:indexPath asset:asset];
+    if (self.imagePicker.delegate && [self.imagePicker.delegate respondsToSelector:@selector(imagePicker:pickerController:didSelectItemAtIndexPath:asset:)]){
+        BOOL showOther = [self.imagePicker.delegate imagePicker:self.imagePicker pickerController:self didSelectItemAtIndexPath:indexPath asset:asset];
         if (showOther) {
             [collectionView deselectItemAtIndexPath:indexPath animated:YES];
         }
